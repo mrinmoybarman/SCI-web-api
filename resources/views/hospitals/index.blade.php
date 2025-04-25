@@ -1,140 +1,265 @@
 @extends('layouts.app')
 
 @section('content')
-  <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Hospitals</h1>
-  </div>
 
-  <!-- Content Row -->
-  <div class="row">
+<!-- Begin Page Content -->
+  <div class="container-fluid">
 
-    <!-- registered total -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Units</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">0 <?php // echo  $total_registered; ?></div>
-            </div>
-            <div class="col-auto">
-              <i class="fa fa-4x fa-users"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Add New Hospitals</h1>
     </div>
 
-    <!-- paymentr completed -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total News </div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"> 0<?php // echo $payment_completed ?></div>
-            </div>
-            <div class="col-auto">
-              <i class="fa fa-4x fa-credit-card"></i>
-            </div>
+    <div class="row">
+
+      <div class="col-md-8" style="margin:auto;background:#dce775;border-radius:5px;padding:20px;">
+        <form action="{{ route('hospitals.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="form-group">
+            <label for="title">Full Name :</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" name="name">
+            @error('name')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
           </div>
-        </div>
+          <div class="form-group">
+            <label for="title">Full Name in Assamese:</label>
+            <input type="text" class="form-control" name="aname">
+          </div>
+          <div class="form-group">
+            <label for="title">Location ():</label>
+            <input type="text" class="form-control @error('location') is-invalid @enderror" value="{{ old('location') }}" name="location">
+            @error('location')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="title">Phone :</label>
+            <input type="text" class="form-control" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="title">Email :</label>
+            <input type="text" class="form-control" name="email">
+          </div>
+          <div class="form-group">
+            <label for="title">Whatsapp :</label>
+            <input type="text" class="form-control" name="whatsapp">
+          </div>
+          <div class="form-group">
+            <label for="description">Address:</label>
+            <textarea class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" rows="4" name="address"></textarea>
+            @error('address')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="description">Google map link:</label>
+            <input class="form-control" type="text" name="gmap"></textarea>
+          </div>          
+          <div class="form-group">
+            <label for="firstname">Select Level</label>
+            <select class="form-control @error('level') is-invalid @enderror" value="{{ old('level') }}"  aria-describedby="Select Level" name="level">
+              <option value="">Select Level</option>
+              <option value="L1">L1</option>
+              <option value="L2">L2</option>
+              <option value="L3">L3</option>
+            </select>
+            @error('level')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="description">Facebook link:</label>
+            <input type="text" class="form-control" rows="1" name="facebook"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Instagram link:</label>
+            <input type="text" class="form-control" rows="1" name="instagram"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Twitter link:</label>
+            <input type="text" class="form-control" rows="1" name="twitter"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">LinkedIn link:</label>
+            <input type="text" class="form-control" rows="1" name="linkedin"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Primary Logo (Square):</label>                            
+            <input type="file" name="logo-primary" accept="image/*" class="@error('logo-primary') is-invalid @enderror">
+            @error('logo-primary')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="description">Secondary Logo (Square):</label>                            
+            <input type="file" name="logo-secondary" accept="image/*" class="@error('logo-secondary') is-invalid @enderror">
+            @error('logo-secondary')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+          <button type="submit" class="btn btn-primary">Add Hospital</button>
+        </form>
       </div>
+
     </div>
     
-    <!-- paymentr verified -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
+  </div>
+  <hr />
+
+  
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Hospitals</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
         <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Doctors</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">0 <?php // echo $verified; ?></div>
-            </div>
-            <div class="col-auto">
-              <i class="fa fa-4x fa-check"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-     
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Footfall</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">0 <?php // echo $rejected; ?></div>
-            </div>
-            <div class="col-auto">
-              <i class="fa fa-4x fa-close"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+          <div class="table-responsive">
+                <table id="hospital-table" class="display nowrap" style="width:100%">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Alternative Name</th>
+                          <th>Location</th>
+                          <th>Phone</th>
+                          <th>Email</th>
+                          <th>Whatsapp</th>
+                          <th>Address</th>
+                          <th>Google Map Link</th>
+                          <th>Level</th>
+                          <th>Facebook</th>
+                          <th>Twitter</th>
+                          <th>Linkedin</th>
+                          <th>Instagram</th>
+                          <th>Primary Logo</th>
+                          <th>Secondary Logo</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+              </table>
 
 
-  {{-- Page Heading  --}}
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">View Units </h1>
-    <p class=" text-info">
-      <button class="btn btn-primary" align="center" type="button" onclick="printdiv()"><i class="fa fa-print"></i></button>
-      <button class="btn btn-warning" onclick="fnExcelReport();" type="button" id="btnExport"><i class="fa fa-file-excel-o"> Export to excel</i></button>
-
-    </p>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card-body">
-        <div class="table-responsive">
-          <div id="printit">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr class="text-white bg-info">
-                  <th class="text-center">#</th>
-                  <th class="text-center">Prefix</th>
-                  <th class="text-center">Name</th>
-                  <th class="text-center">Institution name</th>
-                  <th class="text-center">Institution Address</th>
-                  <th class="text-center">Email Id</th>
-                  <th class="text-center">Whatsapp No</th>
-                  <th class="text-center">Proof of payment</th>
-                  <th class="text-center">Approve</th>
-                  <th class="text-center">Reject</th>
-                  <th class="text-center">Delete</th> 
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-              //   $N = new master();
-              //   $r = $N->fetch_Verification_Pendings();
-              //   for ($i = 0; $i < sizeof($r); $i++) {
-              //     $j = $i+1;
-              //     echo '<tr>';
-              //     echo '<td>' . $j . '</td>';
-              //     echo '<td>' . $r[$i]['prefix'] . '</td>';
-              //     echo '<td>' . $r[$i]['name'] . '</td>';
-              //     echo '<td>' . $r[$i]['iname'] . '</td>';
-              //     echo '<td>' . $r[$i]['iadd'] . '</td>';
-              //     echo '<td>' . $r[$i]['email'] . '</td>';
-              //     echo '<td>' . $r[$i]['wp'] . '</td>';
-              //     echo '<td><a href="uploads/payment/' . $r[$i]['img'] . '"  target="_blank"><img src="uploads/payment/' . $r[$i]['img'] . '" alt="' . $r[$i]['img'] . '" style="width:100px;" /></a></td>';
-              //     echo '<td><a href="Approve_payment.php?id='.$r[$i]['id'] .'"><i class="fa fa-check" aria-hidden="true"></i></a></td>';
-              //     echo '<td><a href="Reject_payment.php?id='.$r[$i]['id'] .'"><i class="fa fa-close" aria-hidden="true"></i></a></td>';
-              //     echo '</tr>';
-              //   }
-                ?>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+@endsection
+
+
+@section('scripts')
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+<script>
+$(function () {
+    $('#hospital-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('hospitals.index') }}",
+        columns: [
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'aname' },
+            { data: 'location' },
+            { data: 'phone'}, 
+            { data: 'email'}, 
+            { data: 'whatsapp'}, 
+            { data: 'address'}, 
+            { data: 'gmap'}, 
+            { data: 'level'}, 
+            { data: 'facebook'}, 
+            { data: 'instagram'},
+            { data: 'twitter'},
+            { data: 'linkedin'}, 
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return `<img src="/storage/${row['logo-primary']}" style="max-height:70px;width:auto" />`;
+                },
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return `<img src="/storage/${row['logo-secondary']}" style="max-height:70px;width:auto" />`;
+                },
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return `
+                        <button class="btn btn-primary edit-btn" data-id="${row.id}">Edit</button>
+                        <button class="btn btn-danger delete-btn" data-id="${row.id}">Delete</button>
+                    `;
+                },
+                orderable: false,
+                searchable: false
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        pageLength: 1
+    });
+});
+
+
+// Handle Edit button click
+$(document).on('click', '.edit-btn', function() {
+  var employeeId = $(this).data('id');
+  window.location.href = '/hospitals/' + employeeId + '/edit'; // Redirect to edit page
+});
+
+// Handle Delete button click
+$(document).on('click', '.delete-btn', function() {
+        var employeeId = $(this).data('id');
+        if (confirm('Are you sure you want to delete this hospital ?')) {
+            // Make a DELETE request to delete the employee
+            $.ajax({
+                url: '/hospitals/' + employeeId,
+                data: {
+                    _token: '{{ csrf_token() }}',  // Include CSRF token
+                },
+                method: 'DELETE',
+                success: function(response) {
+                    alert('Hospital deleted successfully!');
+                    $('#hospital-table').DataTable().ajax.reload(); // Reload the table data
+                },
+                error: function(xhr) {
+                    alert('Error deleting hospital !');
+                }
+            });
+        }
+    });
+
+
+</script>
+
+
 @endsection

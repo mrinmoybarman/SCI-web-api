@@ -14,9 +14,38 @@
   <link href="{{ asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
   <link href="{{ asset('mrincustom.css')}}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- DataTables core CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+  <!-- Buttons plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+  <!-- Optional: DataTables responsive CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
 </head>
 
 <body id="page-top">
+
+  {{-- @foreach (['success', 'danger', 'warning', 'info'] as $type)
+    @if(session($type))
+        <div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 1080;">
+            <div class="toast bg-{{ $type }} text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" data-autohide="true">
+                <div class="toast-header bg-{{ $type }} text-white">
+                    <strong class="mr-auto text-white text-capitalize"><h4>{{ $type }}</h4></strong>
+                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                  <h6>{{ session($type) }}</h6>
+                </div>
+            </div>
+        </div>
+    @endif
+  @endforeach --}}
+
   <!-- Page Wrapper -->
   <div id="wrapper">
     <!-- Sidebar -->
@@ -47,9 +76,9 @@
         <hr class="sidebar-divider">
     
         <li class="nav-item">
-        <a class="nav-link" href="Products.php">
+        <a class="nav-link" href="{{ route('hospitals.index') }}">
             <i class="fa fa-pencil-square-o"></i>
-            <span>Products</span>
+            <span>Hospitals</span>
         </a>
         </li>
         
@@ -201,8 +230,8 @@
   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('js/sb-admin-2.min.js')}}"></script>
-  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+  {{-- <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script> --}}
+  {{-- <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script> --}}
 
   <script type="text/javascript">
     function printdiv() {
@@ -246,6 +275,15 @@
         return (sa);
     }
   </script>
+
+<script>
+  // $(document).ready(function () {
+  //     // Show the toast notifications when the page is loaded
+  //     $('.toast').toast('show');
+  // });
+</script>
+
+@yield('scripts')
 
 </body>
 

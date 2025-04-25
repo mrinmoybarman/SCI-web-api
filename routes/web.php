@@ -19,6 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Hospital routes \
-Route::get('/hospitals', 'HospitalController@index')->name('hospital');
+// Hospital routes 
+Route::resource('hospitals', HospitalController::class)->middleware('auth');;
 

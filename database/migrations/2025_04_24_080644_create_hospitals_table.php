@@ -16,9 +16,20 @@ class CreateHospitalsTable extends Migration
         Schema::create('hospitals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('location')->nullable();
-            $table->string('contact_number')->nullable();
+            $table->string('aname')->nullable();
+            $table->string('location');
+            $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('address')->nullable();
+            $table->text('gmap')->nullable();
+            $table->string('level');
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('logo-primary')->nullable();
+            $table->string('logo-secondary')->nullable();
             $table->timestamps();
         });
     }
