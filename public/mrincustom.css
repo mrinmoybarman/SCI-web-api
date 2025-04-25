@@ -1,0 +1,14 @@
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-weight: 700;
+    color: black;
+}
+
+.form-box{
+    margin: auto;
+    background: linear-gradient(45deg, #ccefe4, #e6dafb);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 5px 1px #92cccf;
+}

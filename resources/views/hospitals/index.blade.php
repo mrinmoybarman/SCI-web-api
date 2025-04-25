@@ -12,7 +12,7 @@
 
     <div class="row">
 
-      <div class="col-md-8" style="margin:auto;background:#dce775;border-radius:5px;padding:20px;">
+      <div class="col-md-8 form-box">
         <form action="{{ route('hospitals.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">

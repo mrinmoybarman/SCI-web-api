@@ -8,7 +8,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-8" style="margin:auto;background:#dce775;border-radius:5px;padding:20px;">
+    <div class="col-md-8 form-box">
       <form action="{{ route('hospitals.update', $hospital->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT') {{-- This is important for PUT method --}}
