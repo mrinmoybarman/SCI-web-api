@@ -19,6 +19,7 @@ class CreateHospitalsTable extends Migration
             $table->string('aname')->nullable();
             $table->string('location');
             $table->string('phone')->nullable();
+            $table->string('phone2')->nullable();
             $table->string('email')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('address')->nullable();

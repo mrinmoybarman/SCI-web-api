@@ -14,7 +14,7 @@ class HospitalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Hospital::select(['id', 'name', 'aname', 'location', 'phone', 'email', 'whatsapp', 'address', 'gmap', 'level', 'facebook', 'instagram','twitter','linkedin', 'logo_primary', 'logo_secondary']);
+            $data = Hospital::select(['id', 'name', 'aname', 'location', 'phone', 'phone2', 'email', 'whatsapp', 'address', 'gmap', 'level', 'facebook', 'instagram','twitter','linkedin', 'logo_primary', 'logo_secondary']);
             // dd($data);
             return DataTables::of($data)->make(true);
         }

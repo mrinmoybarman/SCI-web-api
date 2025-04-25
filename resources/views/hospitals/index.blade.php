@@ -16,7 +16,7 @@
         <form action="{{ route('hospitals.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
-            <label for="title">Full Name :</label>
+            <label for="title">Hospital Name :</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" name="name">
             @error('name')
                 <div class="invalid-feedback">
@@ -25,11 +25,11 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="title">Full Name in Assamese:</label>
+            <label for="title">Hospital Name in Assamese:</label>
             <input type="text" class="form-control" name="aname">
           </div>
           <div class="form-group">
-            <label for="title">Location ():</label>
+            <label for="title">Hospital Location ():</label>
             <input type="text" class="form-control @error('location') is-invalid @enderror" value="{{ old('location') }}" name="location">
             @error('location')
                 <div class="invalid-feedback">
@@ -38,19 +38,23 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="title">Phone :</label>
+            <label for="title">Talephone Number :</label>
             <input type="text" class="form-control" name="phone">
           </div>
           <div class="form-group">
-            <label for="title">Email :</label>
+            <label for="title">Hospital Mobile Number :</label>
+            <input type="text" class="form-control" name="phone2">
+          </div>
+          <div class="form-group">
+            <label for="title">Hospital Email :</label>
             <input type="text" class="form-control" name="email">
           </div>
           <div class="form-group">
-            <label for="title">Whatsapp :</label>
+            <label for="title">Hospital Whatsapp :</label>
             <input type="text" class="form-control" name="whatsapp">
           </div>
           <div class="form-group">
-            <label for="description">Address:</label>
+            <label for="description">Hospital Address:</label>
             <textarea class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" rows="4" name="address"></textarea>
             @error('address')
                 <div class="invalid-feedback">
@@ -59,7 +63,7 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="description">Google map link:</label>
+            <label for="description">Hospital Google map link:</label>
             <input class="form-control" type="text" name="gmap"></textarea>
           </div>          
           <div class="form-group">
@@ -129,7 +133,7 @@
           </div> --}}
 
 
-          <button type="submit" class="btn btn-primary">Add Hospital</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
 
@@ -156,7 +160,8 @@
                           <th>Name</th>
                           <th>Alternative Name</th>
                           <th>Location</th>
-                          <th>Phone</th>
+                          <th>Contact No </th>
+                          <th>Mobile No</th>
                           <th>Email</th>
                           <th>Whatsapp</th>
                           <th>Address</th>
@@ -207,6 +212,7 @@ $(function () {
             { data: 'aname' },
             { data: 'location' },
             { data: 'phone'}, 
+            { data: 'phone2'}, 
             { data: 'email'}, 
             { data: 'whatsapp'}, 
             { data: 'address'}, 
@@ -248,10 +254,13 @@ $(function () {
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ],
-        pageLength: 1
+        lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+        pageLength: 10,
+        // dom: 'lbfrtip',
     });
 });
 
+// sci contact bg colorcode rgb(244 247 227)
 
 // Handle Edit button click
 $(document).on('click', '.edit-btn', function() {

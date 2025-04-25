@@ -14,52 +14,57 @@
         @method('PUT') {{-- This is important for PUT method --}}
         
         <div class="form-group">
-          <label for="name">Full Name :</label>
+          <label for="name">Edit Hospital Name :</label>
           <input type="text" class="form-control @error('name') is-invalid @enderror" 
                  name="name" value="{{ old('name', $hospital->name) }}">
           @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
         <div class="form-group">
-          <label for="aname">Full Name in Assamese:</label>
+          <label for="aname">Edit Hospital Name in Assamese:</label>
           <input type="text" class="form-control" name="aname" value="{{ old('aname', $hospital->aname) }}">
         </div>
 
         <div class="form-group">
-          <label for="location">Location:</label>
+          <label for="location">Edit Hospital Location:</label>
           <input type="text" class="form-control @error('location') is-invalid @enderror" 
                  name="location" value="{{ old('location', $hospital->location) }}">
           @error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
         <div class="form-group">
-          <label for="phone">Phone :</label>
+          <label for="phone">Edit Hospital Talephone Number :</label>
           <input type="text" class="form-control" name="phone" value="{{ old('phone', $hospital->phone) }}">
         </div>
 
         <div class="form-group">
-          <label for="email">Email :</label>
+          <label for="phone">Edit Hospital Mobile Number :</label>
+          <input type="text" class="form-control" name="phone2" value="{{ old('phone2', $hospital->phone2) }}">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Edit Hospital Email :</label>
           <input type="email" class="form-control" name="email" value="{{ old('email', $hospital->email) }}">
         </div>
 
         <div class="form-group">
-          <label for="whatsapp">Whatsapp :</label>
+          <label for="whatsapp">Edit Hospital Whatsapp No:</label>
           <input type="text" class="form-control" name="whatsapp" value="{{ old('whatsapp', $hospital->whatsapp) }}">
         </div>
 
         <div class="form-group">
-          <label for="address">Address:</label>
+          <label for="address">Edit Hospital Address:</label>
           <textarea class="form-control @error('address') is-invalid @enderror" name="address" rows="4">{{ old('address', $hospital->address) }}</textarea>
           @error('address')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
         <div class="form-group">
-          <label for="gmap">Google map link:</label>
+          <label for="gmap">Edit Hospital Google map link:</label>
           <input class="form-control" type="text" name="gmap" value="{{ old('gmap', $hospital->gmap) }}">
         </div>
 
         <div class="form-group">
-          <label for="level">Select Level</label>
+          <label for="level">Update Level</label>
           <select class="form-control @error('level') is-invalid @enderror" name="level">
             <option value="">Select Level</option>
             <option value="L1" {{ old('level', $hospital->level) == 'L1' ? 'selected' : '' }}>L1</option>
@@ -70,27 +75,27 @@
         </div>
 
         <div class="form-group">
-          <label for="facebook">Facebook link:</label>
+          <label for="facebook">Edit Facebook link:</label>
           <input type="text" class="form-control" name="facebook" value="{{ old('facebook', $hospital->facebook) }}">
         </div>
 
         <div class="form-group">
-          <label for="instagram">Instagram link:</label>
+          <label for="instagram">Edit Instagram link:</label>
           <input type="text" class="form-control" name="instagram" value="{{ old('instagram', $hospital->instagram) }}">
         </div>
 
         <div class="form-group">
-          <label for="twitter">Twitter link:</label>
+          <label for="twitter">Edit Twitter link:</label>
           <input type="text" class="form-control" name="twitter" value="{{ old('twitter', $hospital->twitter) }}">
         </div>
 
         <div class="form-group">
-          <label for="linkedin">LinkedIn link:</label>
+          <label for="linkedin">Edit LinkedIn link:</label>
           <input type="text" class="form-control" name="linkedin" value="{{ old('linkedin', $hospital->linkedin) }}">
         </div>
 
         <div class="form-group">
-          <label for="logo_primary">Primary Logo (Square):</label>
+          <label for="logo_primary">Update Primary Logo (Square):</label>
           <input type="file" id="logo_primary" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror" onchange="previewImage(this, '#logo_primary-preview')">
           
           @if($hospital->logo_primary)
@@ -106,7 +111,7 @@
         </div>
         
         <div class="form-group">
-          <label for="logo_secondary">Secondary Logo (Square):</label>
+          <label for="logo_secondary">Update Secondary Logo (Square):</label>
           <input type="file" id="logo_secondary" name="logo_secondary" accept="image/*" class="@error('logo_secondary') is-invalid @enderror" onchange="previewImage(this, '#logo_secondary-preview')">
           
           @if($hospital->logo_secondary)
