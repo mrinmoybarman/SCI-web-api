@@ -98,3 +98,7 @@
         </div>
     </body>
 </html>
+
+
+{{-- example of tiny mce  --}}
+{{-- <textarea id="myeditorinstance" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" rows="4" name="address"> </textarea> --}}

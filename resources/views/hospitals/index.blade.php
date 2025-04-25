@@ -115,24 +115,6 @@
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
-
-
-          {{-- <div class="form-group">
-            <label for="description">Primary Logo (Square):</label>                            
-            <input type="file" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror">
-            @error('logo_primary')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="description">Secondary Logo (Square):</label>                            
-            <input type="file" name="logo_secondary" accept="image/*" class="@error('logo_secondary') is-invalid @enderror">
-            @error('logo_secondary')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div> --}}
-
-
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>

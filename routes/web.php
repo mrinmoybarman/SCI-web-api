@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Hospital routes 
+// Hospital routes bundle as resource 
 Route::resource('hospitals', HospitalController::class)->middleware('auth');
+
+// patient footfall 
+
 
