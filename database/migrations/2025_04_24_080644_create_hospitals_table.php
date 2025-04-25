@@ -28,8 +28,8 @@ class CreateHospitalsTable extends Migration
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
-            $table->string('logo-primary')->nullable();
-            $table->string('logo-secondary')->nullable();
+            $table->string('logo_primary')->nullable();
+            $table->string('logo_secondary')->nullable();
             $table->timestamps();
         });
     }

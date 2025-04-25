@@ -92,20 +92,43 @@
             <label for="description">LinkedIn link:</label>
             <input type="text" class="form-control" rows="1" name="linkedin"></textarea>
           </div>
+
+
           <div class="form-group">
+            <label for="logo_primary">Primary Logo (Square):</label>
+            <input type="file" id="logo_primary" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror" onchange="previewImage(this, '#logo_primary-preview')">
+            <img id="logo_primary-preview" src="#" height="50" style="display:none;">
+            @error('logo_primary')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+          
+          <div class="form-group">
+            <label for="logo_secondary">Secondary Logo (Square):</label>
+            <input type="file" id="logo_secondary" name="logo_secondary" accept="image/*" class="@error('logo_secondary') is-invalid @enderror" onchange="previewImage(this, '#logo_secondary-preview')">
+            <img id="logo_secondary-preview" src="#" height="50" style="display:none;">
+            @error('logo_secondary')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+
+          {{-- <div class="form-group">
             <label for="description">Primary Logo (Square):</label>                            
-            <input type="file" name="logo-primary" accept="image/*" class="@error('logo-primary') is-invalid @enderror">
-            @error('logo-primary')
+            <input type="file" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror">
+            @error('logo_primary')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
           <div class="form-group">
             <label for="description">Secondary Logo (Square):</label>                            
-            <input type="file" name="logo-secondary" accept="image/*" class="@error('logo-secondary') is-invalid @enderror">
-            @error('logo-secondary')
+            <input type="file" name="logo_secondary" accept="image/*" class="@error('logo_secondary') is-invalid @enderror">
+            @error('logo_secondary')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
-          </div>
+          </div> --}}
+
+
           <button type="submit" class="btn btn-primary">Add Hospital</button>
         </form>
       </div>
@@ -196,7 +219,7 @@ $(function () {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return `<img src="/storage/${row['logo-primary']}" style="max-height:70px;width:auto" />`;
+                    return `<img src="/storage/${row['logo_primary']}" style="max-height:70px;width:auto" />`;
                 },
                 orderable: false,
                 searchable: false
@@ -204,7 +227,7 @@ $(function () {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return `<img src="/storage/${row['logo-secondary']}" style="max-height:70px;width:auto" />`;
+                    return `<img src="/storage/${row['logo_secondary']}" style="max-height:70px;width:auto" />`;
                 },
                 orderable: false,
                 searchable: false
@@ -261,5 +284,23 @@ $(document).on('click', '.delete-btn', function() {
 
 </script>
 
+
+<script>
+  function previewImage(input, previewId) {
+    const file = input.files[0];
+    const preview = document.querySelector(previewId);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = '#';
+      preview.style.display = 'none';
+    }
+  }
+</script>
 
 @endsection

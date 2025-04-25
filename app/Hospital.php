@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Hospital extends Model
 {
     protected $fillable = [
-        'name', 'aname', 'location', 'phone', 'email', 'whatsapp', 'address', 'gmap', 'level', 'facebook', 'instagram','twitter','linkedin', 'logo-primary', 'logo-secondary' 
+        'name', 'aname', 'location', 'phone', 'email', 'whatsapp', 'address', 'gmap', 'level', 'facebook', 'instagram','twitter','linkedin', 'logo_primary', 'logo_secondary' 
     ];
 }

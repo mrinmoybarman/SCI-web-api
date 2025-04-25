@@ -28,24 +28,6 @@
 
 <body id="page-top">
 
-  {{-- @foreach (['success', 'danger', 'warning', 'info'] as $type)
-    @if(session($type))
-        <div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 1080;">
-            <div class="toast bg-{{ $type }} text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" data-autohide="true">
-                <div class="toast-header bg-{{ $type }} text-white">
-                    <strong class="mr-auto text-white text-capitalize"><h4>{{ $type }}</h4></strong>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                  <h6>{{ session($type) }}</h6>
-                </div>
-            </div>
-        </div>
-    @endif
-  @endforeach --}}
-
   <!-- Page Wrapper -->
   <div id="wrapper">
     <!-- Sidebar -->
@@ -223,6 +205,25 @@
   </div>
   
 
+@if (session('success'))
+  <div class="alert alert-success alert-dismissible fade show container mt-3" role="alert" style="position: fixed;z-index: 999;top: 0;right: 0;max-width: 400px;">
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+@endif
+
+@if (session('error'))
+  <div class="alert alert-danger alert-dismissible fade show container mt-3" role="alert" style="position: fixed;z-index: 999;top: 0;right: 0;max-width: 400px;">
+    {{ session('error') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+@endif
+
+
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -276,11 +277,12 @@
     }
   </script>
 
-<script>
-  // $(document).ready(function () {
-  //     // Show the toast notifications when the page is loaded
-  //     $('.toast').toast('show');
-  // });
+  <script>
+    setTimeout(function () {
+        if ($('.alert').length) {
+            $('.alert').fadeOut('slow');
+        }
+    }, 3000); // adjust time as needed
 </script>
 
 @yield('scripts')

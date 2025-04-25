@@ -20,5 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Hospital routes 
-Route::resource('hospitals', HospitalController::class)->middleware('auth');;
+Route::resource('hospitals', HospitalController::class)->middleware('auth');
 
