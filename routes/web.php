@@ -23,5 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('hospitals', HospitalController::class)->middleware('auth');
 
 // patient footfall 
-
+Route::resource('footfall', FootfallController::class)->middleware('auth');
 

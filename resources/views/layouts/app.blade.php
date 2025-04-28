@@ -81,18 +81,22 @@
         <hr class="sidebar-divider">
     
         <li class="nav-item">
-        <a class="nav-link" href="{{ route('hospitals.index') }}">
-            <i class="fa fa-pencil-square-o"></i>
-            <span>Hospitals</span>
-        </a>
+          <a class="nav-link" href="{{ route('hospitals.index') }}">
+              <i class="fa fa-pencil-square-o"></i>
+              <span>Hospitals</span>
+          </a>
         </li>
         
         <li class="nav-item">
-        <a class="nav-link" href="Enquiries.php">
-            <i class="fa fa-pencil-square-o"></i>
-            <span>Enquiries</span>
-        </a>
+          <a class="nav-link" href="{{ route('footfall.index') }}">
+              <i class="fa fa-pencil-square-o"></i>
+              <span>Footfall</span>
+          </a>
         </li>
+
+
+       
+      </li>
 
         <!-- Nav Item - Menu with Submenu -->
         <li class="nav-item">

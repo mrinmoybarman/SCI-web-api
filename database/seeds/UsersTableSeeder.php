@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@accf.in',
             'role' => 9,
-            'unit' => 'HO', 
+            'hospitalId' => '0', 
             'password' => Hash::make('Password@123'),
         ]);
 
