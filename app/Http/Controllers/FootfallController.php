@@ -22,7 +22,7 @@ class FootfallController extends Controller
                     ->get();
             }
             else{
-                $data = Footfall::Where('hospitalId',Auth::user()->hospitalId)
+                $data = Footfall::Where('footfalls.hospitalId',Auth::user()->hospitalId)
                     ->join('users', 'footfalls.addedBy', '=', 'users.id')
                     ->join('hospitals', 'footfalls.hospitalId', '=', 'hospitals.id')
                     ->select('footfalls.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
@@ -39,6 +39,8 @@ class FootfallController extends Controller
         else{
             $userHospitalId = null;
         }
+
+        // dd($userHospitalId);
 
         return view('footfall.index', compact('hospitals', 'userHospitalId'));  // yajra Datatable will call it from frontend through ajax, ['hospitals' => Hospital::all()] 
     }

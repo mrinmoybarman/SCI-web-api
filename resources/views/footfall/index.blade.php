@@ -17,7 +17,7 @@
           @csrf
           <div class="form-group">
             <label for="firstname">Select Hospital</label>
-            <select class="form-control @error('hospitalId') is-invalid @enderror" aria-describedby="Select hospital" name="hospitalId" {{ $userHospitalId ? 'disabled' : '' }} required>
+            <select class="form-control @error('hospitalId') is-invalid @enderror" aria-describedby="Select hospital" name="hospitalId" {{ $userHospitalId !== null ? 'disabled' : '' }} required>
               <option value="">Select Hospital</option>
               @foreach ($hospitals as $hospital)
                   <option value="{{ $hospital->id }}" @if (old('hospitalId', $userHospitalId) == $hospital->id) selected @endif>

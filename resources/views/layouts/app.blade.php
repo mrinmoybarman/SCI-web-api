@@ -80,16 +80,19 @@
     
         <hr class="sidebar-divider">
     
+        @if(Auth::user()->role === 9)
         <li class="nav-item">
           <a class="nav-link" href="{{ route('hospitals.index') }}">
               <i class="fa fa-pencil-square-o"></i>
               <span>Hospitals</span>
           </a>
         </li>
+        @endif
         
         <li class="nav-item">
           <a class="nav-link" href="{{ route('footfall.index') }}">
-              <i class="fa fa-pencil-square-o"></i>
+              {{-- <i class="fa fa-pencil-square-o"></i> --}}
+              <i class="fas fa-shoe-prints"></i>
               <span>Footfall</span>
           </a>
         </li>
@@ -164,7 +167,7 @@
 		    </a>
 		    <!-- Dropdown - User Information -->
 		    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-		      <a class="dropdown-item" href="change_password.php">
+		      <a class="dropdown-item" href="{{ route('password.request') }}">
 		        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
 		        Change Password
 		      </a>
