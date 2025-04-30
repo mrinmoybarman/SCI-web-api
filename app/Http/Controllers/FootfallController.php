@@ -60,6 +60,7 @@ class FootfallController extends Controller
         // $data = $request->only(['name', 'email', 'location', 'level']);
 
         
+        dd($request);
 
         $data = $request->all();
         $data['addedBy'] = Auth::id();
