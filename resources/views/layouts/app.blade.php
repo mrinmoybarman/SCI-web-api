@@ -97,6 +97,13 @@
           </a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('doctors.index') }}">
+              <i class="fas fa-hospital-user"></i>
+              <span>Doctors</span>
+          </a>
+        </li>
+
 
        
       </li>

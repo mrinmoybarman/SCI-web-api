@@ -50,12 +50,17 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'hospitalId' => 'required',
+            'hospitalId' => 'required|exists:hospitals,id',
             'name' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'depertment' => 'required|string|max:255',
-            'qualification' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'designation' => 'nullable|string|max:255',
+            'depertment' => 'nullable|string|max:255',
+            'indexx' => 'nullable|integer',
+            'qualification' => 'nullable|string|max:255',
+            'specialization' => 'nullable|string|max:255',
+            'achievement' => 'nullable|string|max:255',
+            'awards' => 'nullable|string|max:255',
+            'profile_details' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         // dd($request);
@@ -86,21 +91,74 @@ class DoctorController extends Controller
     }
 
     
-    public function edit(Doctor $doctor)
+    public function edit($id)
     {
-        $hospital = Hospital::findOrFail($id);
-        return view('doctors.edit', compact('hospital'));
+        if(Auth::user()->role !==9){
+            $userHospitalId = Auth::user()->hospitalId;
+        }
+        else{
+            $userHospitalId = null;
+        }
+
+        $hospitals = Hospital::all();
+
+        $doctor = Doctor::findOrFail($id);
+        return view('doctor.edit', compact('doctor', 'userHospitalId', 'hospitals'));
     }
 
     
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'hospitalId' => 'required|exists:hospitals,id',
+            'name' => 'required|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'depertment' => 'nullable|string|max:255',
+            'indexx' => 'nullable|integer',
+            'qualification' => 'nullable|string|max:255',
+            'specialization' => 'nullable|string|max:255',
+            'achievement' => 'nullable|string|max:255',
+            'awards' => 'nullable|string|max:255',
+            'profile_details' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
+        ]);
+    
+        $doctor = Doctor::findOrFail($id);
+
+        if($doctor->addedBy === Auth::user()->id){
+            
+            $doctor->hospitalId = $request->hospitalId;
+            $doctor->name = $request->name;
+            $doctor->designation = $request->designation;
+            $doctor->depertment = $request->depertment;
+            $doctor->indexx = $request->indexx;
+            $doctor->qualification = $request->qualification;
+            $doctor->specialization = $request->specialization;
+            $doctor->achievement = $request->achievement;
+            $doctor->awards = $request->awards;
+            $doctor->profile_details = $request->profile_details;
+        
+            if ($request->hasFile('photo')) {
+                $imagePath = $request->file('photo')->store('doctors', 'public');
+                $doctor->photo = $imagePath;
+            }
+        
+            $doctor->save();
+        
+            return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully.');
+        }
+        
+        else{
+            return redirect()->route('doctors.index')->with('error', 'Unauthorized Access !');
+        }
     }
 
     
-    public function destroy(Doctor $doctor)
+    public function destroy($id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+
+        return response()->json(['success' => 'Doctor deleted successfully']);
     }
 }

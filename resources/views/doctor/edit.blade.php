@@ -9,126 +9,109 @@
 
   <div class="row">
     <div class="col-md-8 form-box">
-      <form action="{{ route('hospitals.update', $hospital->id) }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT') {{-- This is important for PUT method --}}
+        @method('PUT')
         
         <div class="form-group">
-          <label for="name">Edit Hospital Name :</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                 name="name" value="{{ old('name', $hospital->name) }}">
-          @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            <label for="hospital">Select Hospital</label>
+            <select class="form-control @error('hospitalId') is-invalid @enderror" name="hospitalId" {{ $userHospitalId !== null ? 'readonly' : '' }} required>
+                <option value="">Select Hospital</option>
+                @foreach ($hospitals as $hospital)
+                    <option value="{{ $hospital->id }}" @if (old('hospitalId', $doctor->hospitalId ?? $userHospitalId) == $hospital->id) selected @endif>
+                        {{ $hospital->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('hospitalId')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="aname">Edit Hospital Name in Assamese:</label>
-          <input type="text" class="form-control" name="aname" value="{{ old('aname', $hospital->aname) }}">
+            <label>Doctor Name:</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $doctor->name) }}" name="name">
+            @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="location">Edit Hospital Location:</label>
-          <input type="text" class="form-control @error('location') is-invalid @enderror" 
-                 name="location" value="{{ old('location', $hospital->location) }}">
-          @error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            <label>Doctor Designation:</label>
+            <input type="text" class="form-control @error('designation') is-invalid @enderror" value="{{ old('designation', $doctor->designation) }}" name="designation">
+            @error('designation')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="phone">Edit Hospital Talephone Number :</label>
-          <input type="text" class="form-control" name="phone" value="{{ old('phone', $hospital->phone) }}">
+            <label>Doctor Department:</label>
+            <input type="text" class="form-control @error('depertment') is-invalid @enderror" value="{{ old('depertment', $doctor->depertment) }}" name="depertment">
+            @error('depertment')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="phone">Edit Hospital Mobile Number :</label>
-          <input type="text" class="form-control" name="phone2" value="{{ old('phone2', $hospital->phone2) }}">
+            <label>Index:</label>
+            <input type="text" class="form-control @error('indexx') is-invalid @enderror" value="{{ old('indexx', $doctor->indexx) }}" name="indexx">
+            @error('indexx')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="email">Edit Hospital Email :</label>
-          <input type="email" class="form-control" name="email" value="{{ old('email', $hospital->email) }}">
+            <label>Doctor Qualification:</label>
+            <input type="text" class="form-control @error('qualification') is-invalid @enderror" value="{{ old('qualification', $doctor->qualification) }}" name="qualification">
+            @error('qualification')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="whatsapp">Edit Hospital Whatsapp No:</label>
-          <input type="text" class="form-control" name="whatsapp" value="{{ old('whatsapp', $hospital->whatsapp) }}">
+            <label>Doctor Specialization:</label>
+            <input type="text" class="form-control @error('specialization') is-invalid @enderror" value="{{ old('specialization', $doctor->specialization) }}" name="specialization">
+            @error('specialization')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="address">Edit Hospital Address:</label>
-          <textarea class="form-control @error('address') is-invalid @enderror" name="address" rows="4">{{ old('address', $hospital->address) }}</textarea>
-          @error('address')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            <label>Doctor Achievement:</label>
+            <input type="text" class="form-control @error('achievement') is-invalid @enderror" value="{{ old('achievement', $doctor->achievement) }}" name="achievement">
+            @error('achievement')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="gmap">Edit Hospital Google map link:</label>
-          <input class="form-control" type="text" name="gmap" value="{{ old('gmap', $hospital->gmap) }}">
+            <label>Doctor Awards:</label>
+            <input type="text" class="form-control @error('awards') is-invalid @enderror" value="{{ old('awards', $doctor->awards) }}" name="awards">
+            @error('awards')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="level">Update Level</label>
-          <select class="form-control @error('level') is-invalid @enderror" name="level">
-            <option value="">Select Level</option>
-            <option value="L1" {{ old('level', $hospital->level) == 'L1' ? 'selected' : '' }}>L1</option>
-            <option value="L2" {{ old('level', $hospital->level) == 'L2' ? 'selected' : '' }}>L2</option>
-            <option value="L3" {{ old('level', $hospital->level) == 'L3' ? 'selected' : '' }}>L3</option>
-          </select>
-          @error('level')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            <label>Doctor Profile Details:</label>
+            <textarea class="form-control @error('profile_details') is-invalid @enderror" rows="4" name="profile_details">{{ old('profile_details', $doctor->profile_details) }}</textarea>
+            @error('profile_details')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
+    
         <div class="form-group">
-          <label for="facebook">Edit Facebook link:</label>
-          <input type="text" class="form-control" name="facebook" value="{{ old('facebook', $hospital->facebook) }}">
+            <label>Doctor Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" class="@error('photo') is-invalid @enderror" onchange="previewImage(this, '#Photo-preview')">
+            <img id="Photo-preview" src="{{ $doctor->photo ? asset('storage/'.$doctor->photo) : '#' }}" height="50" style="{{ $doctor->photo ? '' : 'display:none;' }}">
+            @error('photo')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
-        <div class="form-group">
-          <label for="instagram">Edit Instagram link:</label>
-          <input type="text" class="form-control" name="instagram" value="{{ old('instagram', $hospital->instagram) }}">
-        </div>
-
-        <div class="form-group">
-          <label for="twitter">Edit Twitter link:</label>
-          <input type="text" class="form-control" name="twitter" value="{{ old('twitter', $hospital->twitter) }}">
-        </div>
-
-        <div class="form-group">
-          <label for="linkedin">Edit LinkedIn link:</label>
-          <input type="text" class="form-control" name="linkedin" value="{{ old('linkedin', $hospital->linkedin) }}">
-        </div>
-
-        <div class="form-group">
-          <label for="logo_primary">Update Primary Logo (Square):</label>
-          <input type="file" id="logo_primary" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror" onchange="previewImage(this, '#logo_primary-preview')">
-          
-          @if($hospital->logo_primary)
-            <p class="mt-2">Current:</p>
-            <img id="logo_primary-preview" src="{{ asset('storage/' . $hospital->logo_primary) }}" height="50" style="display: block;">
-          @else
-            <img id="logo_primary-preview" src="#" height="50" style="display:none;">
-          @endif
-          
-          @error('logo_primary')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-        
-        <div class="form-group">
-          <label for="logo_secondary">Update Secondary Logo (Square):</label>
-          <input type="file" id="logo_secondary" name="logo_secondary" accept="image/*" class="@error('logo_secondary') is-invalid @enderror" onchange="previewImage(this, '#logo_secondary-preview')">
-          
-          @if($hospital->logo_secondary)
-            <p class="mt-2">Current:</p>
-            <img id="logo_secondary-preview" src="{{ asset('storage/' . $hospital->logo_secondary) }}" height="50" style="display: block;">
-          @else
-            <img id="logo_secondary-preview" src="#" height="50" style="display:none;">
-          @endif
-          
-          @error('logo_secondary')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-        
-
-        <button type="submit" class="btn btn-primary">Update Hospital</button>
-      </form>
+    
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    
     </div>
   </div>
 
