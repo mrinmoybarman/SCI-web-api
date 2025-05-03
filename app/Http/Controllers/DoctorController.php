@@ -11,11 +11,7 @@ use DataTables;
 
 class DoctorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -49,67 +45,60 @@ class DoctorController extends Controller
         return view('doctor.index', compact('hospitals', 'userHospitalId'));  // yajra Datatable will call it from frontend through ajax, ['hospitals' => Hospital::all()] 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'hospitalId' => 'required',
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'depertment' => 'required|string|max:255',
+            'qualification' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        // dd($request);
+
+        $data = $request->all();
+
+        if(!$request->indexx){
+            $data['indexx'] = 0;
+        }
+
+        $data['addedBy'] = Auth::id();
+        $data['status'] = 1;
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('doctor_photo', 'public');
+        }
+
+        Doctor::create($data);
+
+        return redirect()->route('doctors.index')->with('success', 'Doctors added successfully.');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Doctor  $doctor
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Doctor $doctor)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Doctor  $doctor
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Doctor $doctor)
     {
-        //
+        $hospital = Hospital::findOrFail($id);
+        return view('doctors.edit', compact('hospital'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Doctor  $doctor
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Doctor $doctor)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Doctor  $doctor
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Doctor $doctor)
     {
         //

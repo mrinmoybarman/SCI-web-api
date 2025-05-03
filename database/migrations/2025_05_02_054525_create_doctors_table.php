@@ -21,12 +21,12 @@ class CreateDoctorsTable extends Migration
             $table->string('designation');
             $table->string('depertment');
             $table->string('qualification');
-            $table->string('specialization');
-            $table->string('achievement');
-            $table->string('awards');
+            $table->string('specialization')->nullable();
+            $table->string('achievement')->nullable();
+            $table->string('awards')->nullable();
             $table->string('profile_details');
-            $table->string('photos');
-            $table->integer('status');
+            $table->string('photo')->nullable();
+            $table->integer('status')->default(1);
             $table->integer('indexx');
             $table->timestamps();
         });

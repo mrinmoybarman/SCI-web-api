@@ -16,7 +16,7 @@
         <form action="{{ route('doctors.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
-            <label for="firstname">Select Hospital</label>
+            <label for="hospital">Select Hospital</label>
             <select class="form-control @error('hospitalId') is-invalid @enderror" aria-describedby="Select hospital" name="hospitalId" {{ $userHospitalId !== null ? 'readonly' : '' }} required>
               <option value="">Select Hospital</option>
               @foreach ($hospitals as $hospital)
@@ -124,22 +124,14 @@
 
 
           <div class="form-group">
-            <label for="logo_primary">Primary Logo (Square):</label>
-            <input type="file" id="logo_primary" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror" onchange="previewImage(this, '#logo_primary-preview')">
-            <img id="logo_primary-preview" src="#" height="50" style="display:none;">
-            @error('logo_primary')
+            <label for="logo_primary">Doctor Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" class="@error('photo') is-invalid @enderror" onchange="previewImage(this, '#Photo-preview')">
+            <img id="Photo-preview" src="#" height="50" style="display:none;">
+            @error('photo')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
           
-          <div class="form-group">
-            <label for="logo_secondary">Secondary Logo (Square):</label>
-            <input type="file" id="logo_secondary" name="logo_secondary" accept="image/*" class="@error('logo_secondary') is-invalid @enderror" onchange="previewImage(this, '#logo_secondary-preview')">
-            <img id="logo_secondary-preview" src="#" height="50" style="display:none;">
-            @error('logo_secondary')
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -217,26 +209,17 @@ $(function () {
             { data: 'added_by_name' },
             { data: 'designation'}, 
             { data: 'profile_details'}, 
-            { data: 'department'}, 
-            { data: 'qualifications'}, 
-            { data: 'specializations'}, 
-            { data: 'achievments'}, 
+            { data: 'depertment'}, 
+            { data: 'qualification'}, 
+            { data: 'specialization'}, 
+            { data: 'achievement'}, 
             { data: 'awards'}, 
             { data: 'indexx'}, 
             { data: 'status'},
-            { data: 'photo'},
             {
                 data: null,
                 render: function(data, type, row) {
-                    return `<img src="/storage/${row['logo_primary']}" style="max-height:70px;width:auto" />`;
-                },
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: null,
-                render: function(data, type, row) {
-                    return `<img src="/storage/${row['logo_secondary']}" style="max-height:70px;width:auto" />`;
+                    return `<img src="/storage/${row['photo']}" style="max-height:70px;width:auto" />`;
                 },
                 orderable: false,
                 searchable: false
@@ -268,26 +251,26 @@ $(function () {
 // Handle Edit button click
 $(document).on('click', '.edit-btn', function() {
   var employeeId = $(this).data('id');
-  window.location.href = '/hospitals/' + employeeId + '/edit'; // Redirect to edit page
+  window.location.href = '/doctors/' + employeeId + '/edit'; // Redirect to edit page
 });
 
 // Handle Delete button click
 $(document).on('click', '.delete-btn', function() {
         var employeeId = $(this).data('id');
-        if (confirm('Are you sure you want to delete this hospital ?')) {
+        if (confirm('Are you sure you want to delete this Doctors ?')) {
             // Make a DELETE request to delete the employee
             $.ajax({
-                url: '/hospitals/' + employeeId,
+                url: '/doctors/' + employeeId,
                 data: {
                     _token: '{{ csrf_token() }}',  // Include CSRF token
                 },
                 method: 'DELETE',
                 success: function(response) {
-                    alert('Hospital deleted successfully!');
+                    alert('Doctor deleted successfully!');
                     $('#hospital-table').DataTable().ajax.reload(); // Reload the table data
                 },
                 error: function(xhr) {
-                    alert('Error deleting hospital !');
+                    alert('Error deleting doctor !');
                 }
             });
         }
