@@ -25,7 +25,9 @@ Route::resource('hospitals', HospitalController::class)->middleware('auth');
 // patient footfall 
 Route::resource('footfall', FootfallController::class)->middleware('auth');
 
-
 // doctor routes 
 Route::resource('doctors', DoctorController::class)->middleware('auth');
+
+// doctor routes 
+Route::resource('facilities', FacilityController::class)->middleware('auth');
 
