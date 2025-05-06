@@ -28,9 +28,12 @@ Route::resource('footfall', FootfallController::class)->middleware('auth');
 // doctor routes 
 Route::resource('doctors', DoctorController::class)->middleware('auth');
 
-// doctor routes 
+// facilities routes 
 Route::resource('facilities', FacilityController::class)->middleware('auth');
 
-// doctor routes 
+// news_and_events routes 
 Route::resource('news_and_events', NewsAndEventController::class)->middleware('auth');
+
+// updates routes 
+Route::resource('updates', UpdatesController::class)->middleware('auth');
 

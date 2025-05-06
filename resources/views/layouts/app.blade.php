@@ -114,6 +114,13 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('updates.index') }}">
+              <i class="fas fa-bell" aria-hidden="true"></i>
+              <span>Updates</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('doctors.index') }}">
               <i class="fas fa-hospital-user"></i>
               <span>Doctors</span>
