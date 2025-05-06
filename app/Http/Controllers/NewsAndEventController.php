@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Facility;
+use App\NewsAndEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Hospital;
 use DataTables;
+use App\Hospital;
 
-class FacilityController extends Controller
+
+class NewsAndEventController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = Facility::all();
-                $data = Facility::join('users', 'facilities.addedBy', '=', 'users.id')
-                    ->join('hospitals', 'facilities.hospitalId', '=', 'hospitals.id')
-                    ->select('facilities.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
+                $data = NewsAndEvent::all();
+                $data = NewsAndEvent::join('users', 'news_and_events.addedBy', '=', 'users.id')
+                    ->join('hospitals', 'news_and_events.hospitalId', '=', 'hospitals.id')
+                    ->select('news_and_events.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
                     ->get();
             }
             else{
-                $data = Facility::Where('facilities.hospitalId',Auth::user()->hospitalId)
-                    ->join('users', 'facilities.addedBy', '=', 'users.id')
-                    ->join('hospitals', 'facilities.hospitalId', '=', 'hospitals.id')
-                    ->select('facilities.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
+                $data = NewsAndEvent::Where('news_and_events.hospitalId',Auth::user()->hospitalId)
+                    ->join('users', 'news_and_events.addedBy', '=', 'users.id')
+                    ->join('hospitals', 'news_and_events.hospitalId', '=', 'hospitals.id')
+                    ->select('news_and_events.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
                     ->get();
             }
             return DataTables::of($data)->make(true);
@@ -39,9 +40,8 @@ class FacilityController extends Controller
             $userHospitalId = null;
         }
 
-        // dd($userHospitalId);
 
-        return view('facility.index', compact('hospitals', 'userHospitalId'));  // yajra Datatable will call it from frontend through ajax, ['hospitals' => Hospital::all()] 
+        return view('news_and_events.index', compact('hospitals', 'userHospitalId'));  // yajra Datatable will call it from frontend through ajax, ['hospitals' => Hospital::all()] 
     }
 
     public function store(Request $request)
@@ -58,12 +58,12 @@ class FacilityController extends Controller
         $data['addedBy'] = Auth::id();
 
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('facility_photo', 'public');
+            $data['photo'] = $request->file('photo')->store('news_and_events_photo', 'public');
         }
 
-        Facility::create($data);
+        NewsAndEvent::create($data);
 
-        return redirect()->route('facilities.index')->with('success', 'Facility added successfully.');
+        return redirect()->route('news_and_events.index')->with('success', 'News/Event added successfully.');
     }
 
 
@@ -79,8 +79,8 @@ class FacilityController extends Controller
 
         $hospitals = Hospital::all();
 
-        $facility = Facility::findOrFail($id);
-        return view('facility.edit', compact('facility', 'userHospitalId', 'hospitals'));
+        $news_and_event = NewsAndEvent::findOrFail($id);
+        return view('news_and_events.edit', compact('news_and_event', 'userHospitalId', 'hospitals'));
     }
 
     public function update(Request $request, $id)
@@ -93,9 +93,9 @@ class FacilityController extends Controller
             'photo' => 'nullable|image|max:2048',
         ]);
 
-        $facility = Facility::findOrFail($id);
+        $facility = NewsAndEvent::findOrFail($id);
 
-        if($facility->hospitalId === Auth::user()->hospitalId){
+        if($facility->addedBy === Auth::user()->id){
 
             $facility->hospitalId = $request->hospitalId;
             $facility->name = $request->name;
@@ -103,17 +103,18 @@ class FacilityController extends Controller
             $facility->details = $request->details;
         
             if ($request->hasFile('photo')) {
-                $imagePath = $request->file('photo')->store('facility_photo', 'public');
+                $imagePath = $request->file('photo')->store('news_and_events_photo', 'public');
                 $facility->photo = $imagePath;
             }
+            
         
             $facility->save();
     
-            return redirect()->route('facilities.index')->with('success', 'Facility updated successfully!');
+            return redirect()->route('news_and_events.index')->with('success', 'News/Event updated successfully!');
         }
 
         else{
-            return redirect()->route('facilities.index')->with('error', 'Unauthorized Access !');
+            return redirect()->route('news_and_events.index')->with('error', 'Unauthorized Access !');
         }
         
     }
@@ -121,13 +122,8 @@ class FacilityController extends Controller
 
     public function destroy($id)
     {
-        $facility = Facility::findOrFail($id);
-        if($facility->hospitalId === Auth::user()->hospitalId){
-          $facility->delete();
-          return response()->json(['success' => 'Footfall deleted successfully']);
-        }
-        else{
-            return redirect()->route('facilities.index')->with('error', 'Unauthorized Access !');
-        }
+        $facility = NewsAndEvent::findOrFail($id);
+        $facility->delete();
+        return response()->json(['success' => 'News/Event deleted successfully']);
     }
 }

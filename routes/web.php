@@ -31,3 +31,6 @@ Route::resource('doctors', DoctorController::class)->middleware('auth');
 // doctor routes 
 Route::resource('facilities', FacilityController::class)->middleware('auth');
 
+// doctor routes 
+Route::resource('news_and_events', NewsAndEventController::class)->middleware('auth');
+

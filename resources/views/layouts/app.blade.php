@@ -98,6 +98,22 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('facilities.index') }}">
+              {{-- <i class="fa fa-pencil-square-o"></i> --}}
+              {{-- <i class="fas fa-shoe-prints"></i> --}}
+              <i class="fas fa-bed" aria-hidden="true"></i>
+              <span>Facilities</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('news_and_events.index') }}">
+              <i class="fas fa-globe" aria-hidden="true"></i>
+              <span>News & Events</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('doctors.index') }}">
               <i class="fas fa-hospital-user"></i>
               <span>Doctors</span>
