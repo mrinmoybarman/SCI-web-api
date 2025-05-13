@@ -89,7 +89,7 @@ class UpdatesController extends Controller
 
         $update = Updates::findOrFail($id);
 
-        if($update->hospitalId === Auth::user()->hospitalId){
+        if(Auth::user()->role == 9 ||  $update->hospitalId === Auth::user()->hospitalId){
 
             $update->hospitalId = $request->hospitalId;
             $update->name = $request->name;
@@ -110,7 +110,7 @@ class UpdatesController extends Controller
     public function destroy($id)
     {
         $update = Updates::findOrFail($id);
-        if($update->hospitalId === Auth::user()->hospitalId){
+        if(Auth::user()->role == 9 || $update->hospitalId === Auth::user()->hospitalId){
           $update->delete();
           return response()->json(['success' => 'Update deleted successfully']);
         }

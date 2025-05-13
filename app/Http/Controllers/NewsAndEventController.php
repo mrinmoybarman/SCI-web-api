@@ -95,7 +95,7 @@ class NewsAndEventController extends Controller
 
         $facility = NewsAndEvent::findOrFail($id);
 
-        if($facility->addedBy === Auth::user()->id){
+        if(Auth::user()->role == 9 || $facility->addedBy === Auth::user()->id){
 
             $facility->hospitalId = $request->hospitalId;
             $facility->name = $request->name;
@@ -123,7 +123,13 @@ class NewsAndEventController extends Controller
     public function destroy($id)
     {
         $facility = NewsAndEvent::findOrFail($id);
-        $facility->delete();
-        return response()->json(['success' => 'News/Event deleted successfully']);
+        if(Auth::user()->role == 9 || $facility->addedBy === Auth::user()->id){
+            $facility->delete();
+            return response()->json(['success' => 'News/Event deleted successfully']);
+        }
+        else{
+            return redirect()->route('news_and_events.index')->with('error', 'Unauthorized Access !');
+        }
+        
     }
 }

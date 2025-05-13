@@ -31,9 +31,12 @@ Route::resource('doctors', DoctorController::class)->middleware('auth');
 // facilities routes 
 Route::resource('facilities', FacilityController::class)->middleware('auth');
 
-// news_and_events routes 
+// news_and_events routes // multiple images
 Route::resource('news_and_events', NewsAndEventController::class)->middleware('auth');
 
 // updates routes 
 Route::resource('updates', UpdatesController::class)->middleware('auth');
+
+// slides routes 
+Route::resource('slides', SlidesController::class)->middleware('auth');
 

@@ -125,7 +125,7 @@ class DoctorController extends Controller
     
         $doctor = Doctor::findOrFail($id);
 
-        if($doctor->addedBy === Auth::user()->id){
+        if(Auth::user()->role == 9 || $doctor->addedBy === Auth::user()->id){
             
             $doctor->hospitalId = $request->hospitalId;
             $doctor->name = $request->name;
@@ -157,8 +157,12 @@ class DoctorController extends Controller
     public function destroy($id)
     {
         $doctor = Doctor::findOrFail($id);
-        $doctor->delete();
-
-        return response()->json(['success' => 'Doctor deleted successfully']);
+        if(Auth::user()->role == 9 || $doctor->addedBy === Auth::user()->id){
+            $doctor->delete();
+            return response()->json(['success' => 'Doctor deleted successfully']);
+        }
+        else{
+            return redirect()->route('doctors.index')->with('error', 'Unauthorized Access !');
+        }
     }
 }

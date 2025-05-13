@@ -127,7 +127,14 @@
           </a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('slides.index') }}">
+              <i class="fas fa-images"></i>
+              <span>Slides</span>
+          </a>
+        </li>
 
+        
        
       </li>
 

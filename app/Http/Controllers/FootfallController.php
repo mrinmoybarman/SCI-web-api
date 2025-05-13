@@ -103,7 +103,7 @@ class FootfallController extends Controller
 
         // dd($footfall);
 
-        if($footfall->addedBy === Auth::user()->id){
+        if(Auth::user()->role == 9 || $footfall->addedBy === Auth::user()->id){
             $footfall->update([
                 'hospitalId' => $request->hospitalId,
                 'date' => $request->date,
@@ -126,8 +126,12 @@ class FootfallController extends Controller
     public function destroy($id)
     {
         $footfall = Footfall::findOrFail($id);
-        $footfall->delete();
-
-        return response()->json(['success' => 'Footfall deleted successfully']);
+        if(Auth::user()->role == 9 || $footfall->addedBy === Auth::user()->id){
+            $footfall->delete();
+            return response()->json(['success' => 'Footfall deleted successfully']);
+        }
+        else{
+            return redirect()->route('footfall.index')->with('error', 'Unauthorized Access !');
+        }
     }
 }

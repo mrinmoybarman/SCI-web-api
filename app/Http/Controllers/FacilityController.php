@@ -95,7 +95,7 @@ class FacilityController extends Controller
 
         $facility = Facility::findOrFail($id);
 
-        if($facility->hospitalId === Auth::user()->hospitalId){
+        if(Auth::user()->role == 9 || $facility->hospitalId === Auth::user()->hospitalId){
 
             $facility->hospitalId = $request->hospitalId;
             $facility->name = $request->name;
@@ -122,7 +122,7 @@ class FacilityController extends Controller
     public function destroy($id)
     {
         $facility = Facility::findOrFail($id);
-        if($facility->hospitalId === Auth::user()->hospitalId){
+        if(Auth::user()->role == 9 || $facility->hospitalId === Auth::user()->hospitalId){
           $facility->delete();
           return response()->json(['success' => 'Footfall deleted successfully']);
         }
