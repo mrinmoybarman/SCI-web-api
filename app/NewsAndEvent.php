@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class NewsAndEvent extends Model
 {
     protected $fillable = [
-        'hospitalId', 'addedBy', 'name', 'photo', 'details', 'indexx'
+        'hospitalId', 'addedBy', 'name', 'photo', 'details', 'indexx', 'status'
     ];
 }

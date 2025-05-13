@@ -13,6 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// this is to fetch all doctor from a center  
+Route::post('/get-hospitals', 'api@getHospitals');
+
+// this is to fetch all doctor from a center  
+Route::post('/get-doctor-for-center', 'api@getCentreDoctor');
+
+// this is to fetch latest footfall count of a center  
+Route::post('/get-counts-for-center', 'api@getCentreFootfall');
+
+// this is to fetch all facility of a center  
+Route::post('/get-facility-for-center', 'api@getFecility');
+
+// this is to fetch all news & events of a center  
+Route::post('/get-news-events-for-center', 'api@getCentreNewsEvents');
+
+// this is to fetch all news & events of a center  
+Route::post('/get-slides-for-center', 'api@getCentreSlides');
+
+
+// this is to fetch all news update of a center  
+Route::post('/get-updates-for-center', 'api@getCentreUpdate');
+
+

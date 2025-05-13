@@ -21,6 +21,7 @@ class CreateNewsAndEventsTable extends Migration
             $table->string('photo')->nullable();
             $table->string('details');
             $table->integer('indexx');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
