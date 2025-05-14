@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Hospital;
+use DataTables;
+use Illuminate\Support\Facades\Auth;
+
 
 class EnquiryController extends Controller
 {
@@ -11,17 +16,15 @@ class EnquiryController extends Controller
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = Facility::all();
-                $data = Facility::join('users', 'facilities.addedBy', '=', 'users.id')
-                    ->join('hospitals', 'facilities.hospitalId', '=', 'hospitals.id')
-                    ->select('facilities.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
+                $data = Enquiry::all();
+                $data = Enquiry::join('hospitals', 'enquiries.hospitalId', '=', 'hospitals.id')
+                    ->select('enquiries.*', 'hospitals.name as hospital_name')
                     ->get();
             }
             else{
-                $data = Facility::Where('facilities.hospitalId',Auth::user()->hospitalId)
-                    ->join('users', 'facilities.addedBy', '=', 'users.id')
-                    ->join('hospitals', 'facilities.hospitalId', '=', 'hospitals.id')
-                    ->select('facilities.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
+                $data = Enquiry::Where('enquiries.hospitalId',Auth::user()->hospitalId)
+                    ->join('hospitals', 'enquiries.hospitalId', '=', 'hospitals.id')
+                    ->select('enquiries.*', 'hospitals.name as hospital_name')
                     ->get();
             }
             return DataTables::of($data)->make(true);
@@ -35,21 +38,26 @@ class EnquiryController extends Controller
         else{
             $userHospitalId = null;
         }
-
-        // dd($userHospitalId);
-
-        return view('facility.index', compact('hospitals', 'userHospitalId'));  // yajra Datatable will call it from frontend through ajax, ['hospitals' => Hospital::all()] 
+        return view('enquiries.index', compact('hospitals', 'userHospitalId'));  // yajra Datatable will call it from frontend through ajax, ['hospitals' => Hospital::all()] 
     }
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'hospitalId' => 'required|exists:hospitals,id',
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|integer',
-        //     'mobile' => 'required|string',
-        //     'message' => 'required|string',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'hospitalId' => 'required|exists:hospitals,id',
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255',
+            'mobile'     => 'required|string|max:15',
+            'message'    => 'required|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors'  => $validator->errors(),
+                'message' => 'Validation failed.'
+            ], 422);
+        }
 
         $data = $request->all();
 
@@ -61,68 +69,15 @@ class EnquiryController extends Controller
         ], 200);
     }
 
-
-    public function edit($id)
-    {
-
-        if(Auth::user()->role !==9){
-            $userHospitalId = Auth::user()->hospitalId;
-        }
-        else{
-            $userHospitalId = null;
-        }
-
-        $hospitals = Hospital::all();
-
-        $facility = Facility::findOrFail($id);
-        return view('facility.edit', compact('facility', 'userHospitalId', 'hospitals'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'hospitalId' => 'required|exists:hospitals,id',
-            'name' => 'required|string|max:255',
-            'indexx' => 'required|integer',
-            'details' => 'required|string',
-            'photo' => 'nullable|image|max:2048',
-        ]);
-
-        $facility = Facility::findOrFail($id);
-
-        if(Auth::user()->role == 9 || $facility->hospitalId === Auth::user()->hospitalId){
-
-            $facility->hospitalId = $request->hospitalId;
-            $facility->name = $request->name;
-            $facility->indexx = $request->indexx;
-            $facility->details = $request->details;
-        
-            if ($request->hasFile('photo')) {
-                $imagePath = $request->file('photo')->store('facility_photo', 'public');
-                $facility->photo = $imagePath;
-            }
-        
-            $facility->save();
-    
-            return redirect()->route('facilities.index')->with('success', 'Facility updated successfully!');
-        }
-
-        else{
-            return redirect()->route('facilities.index')->with('error', 'Unauthorized Access !');
-        }
-        
-    }
-
-
     public function destroy($id)
     {
-        $facility = Facility::findOrFail($id);
+        $facility = Enquiry::findOrFail($id);
         if(Auth::user()->role == 9 || $facility->hospitalId === Auth::user()->hospitalId){
           $facility->delete();
-          return response()->json(['success' => 'Footfall deleted successfully']);
+          return response()->json(['success' => 'Enquiry deleted successfully']);
         }
         else{
-            return redirect()->route('facilities.index')->with('error', 'Unauthorized Access !');
+            return redirect()->route('enquiries.index')->with('error', 'Unauthorized Access !');
         }
     }
 }

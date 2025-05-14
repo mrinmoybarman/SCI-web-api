@@ -40,3 +40,6 @@ Route::resource('updates', UpdatesController::class)->middleware('auth');
 // slides routes 
 Route::resource('slides', SlidesController::class)->middleware('auth');
 
+// slides routes 
+Route::resource('enquiries', EnquiryController::class)->middleware('auth');
+

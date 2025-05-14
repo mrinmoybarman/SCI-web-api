@@ -90,6 +90,13 @@
         @endif
         
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('enquiries.index') }}">
+              <i class="fa fa-pencil-square-o"></i>
+              <span>Enquiries</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('footfall.index') }}">
               {{-- <i class="fa fa-pencil-square-o"></i> --}}
               <i class="fas fa-shoe-prints"></i>
