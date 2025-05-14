@@ -36,3 +36,7 @@ Route::post('/get-slides-for-center', 'api@getCentreSlides');
 Route::post('/get-updates-for-center', 'api@getCentreUpdate');
 
 
+// this is to sent messsage
+Route::post('/submit-message', 'EnquiryController@store');
+
+
