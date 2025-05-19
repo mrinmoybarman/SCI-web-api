@@ -60,15 +60,17 @@
             @enderror
           </div>
 
-
           <div class="form-group">
-            <label for="logo_primary">Photo:</label>
-            <input type="file" id="photo" name="photo" accept="image/*" class="@error('photo') is-invalid @enderror" onchange="previewImage(this, '#Photo-preview')">
-            <img id="Photo-preview" src="#" height="50" style="display:none;">
-            @error('photo')
+            <label for="photos">Photos:</label>
+            <input type="file" id="photos" name="photos[]" accept="image/*" multiple
+                  class="@error('photos') is-invalid @enderror"
+                  onchange="previewMultipleImages(this, '#Photo-preview-container')">
+            <div id="Photo-preview-container" style="display:flex; gap: 10px; flex-wrap: wrap;"></div>
+            @error('photos')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
+
           
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -99,7 +101,7 @@
                           <th>Added By</th>
                           <th>Profile Details</th>
                           <th>indexx</th>
-                          <th>photo</th>
+                          <th>photos</th>
                           <th>Actions</th>
                       </tr>
                   </thead>
@@ -143,7 +145,13 @@ $(function () {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return `<img src="/storage/${row['photo']}" style="max-height:70px;width:auto" />`;
+                    if (!row.photos || row.photos.length === 0) {
+                        return 'No images';
+                    }
+
+                    return row.photos.map(photo => {
+                        return `<img src="/storage/${photo.photo_path}" style="max-height:70px;width:auto; margin-right: 5px;" />`;
+                    }).join('');
                 },
                 orderable: false,
                 searchable: false
@@ -170,7 +178,6 @@ $(function () {
     });
 });
 
-// sci contact bg colorcode rgb(244 247 227)
 
 // Handle Edit button click
 $(document).on('click', '.edit-btn', function() {
@@ -203,23 +210,65 @@ $(document).on('click', '.delete-btn', function() {
 
 </script>
 
-
 <script>
-  function previewImage(input, previewId) {
-    const file = input.files[0];
-    const preview = document.querySelector(previewId);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        preview.src = e.target.result;
-        preview.style.display = 'block';
-      }
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = '#';
-      preview.style.display = 'none';
-    }
-  }
+let selectedFiles = [];
+
+function previewMultipleImages(input, previewContainerSelector) {
+    const container = document.querySelector(previewContainerSelector);
+    container.innerHTML = '';
+
+    selectedFiles = Array.from(input.files); // Reset on new selection
+
+    const newDataTransfer = new DataTransfer();
+
+    selectedFiles.forEach((file, index) => {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'relative';
+            wrapper.style.display = 'inline-block';
+            wrapper.style.margin = '5px';
+
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.height = '70px';
+            img.style.border = '1px solid #ccc';
+            img.style.borderRadius = '4px';
+
+            const removeBtn = document.createElement('span');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.style.position = 'absolute';
+            removeBtn.style.top = '0';
+            removeBtn.style.right = '5px';
+            removeBtn.style.color = 'white';
+            removeBtn.style.backgroundColor = 'red';
+            removeBtn.style.borderRadius = '50%';
+            removeBtn.style.cursor = 'pointer';
+            removeBtn.style.padding = '0 5px';
+            removeBtn.title = 'Remove';
+
+            removeBtn.onclick = function () {
+                selectedFiles.splice(index, 1); // remove the image
+                rebuildFileInput(input); // update the file input
+                previewMultipleImages(input, previewContainerSelector); // re-render
+            };
+
+            wrapper.appendChild(img);
+            wrapper.appendChild(removeBtn);
+            container.appendChild(wrapper);
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+function rebuildFileInput(input) {
+    const newDataTransfer = new DataTransfer();
+    selectedFiles.forEach(file => newDataTransfer.items.add(file));
+    input.files = newDataTransfer.files;
+}
 </script>
+
 
 @endsection

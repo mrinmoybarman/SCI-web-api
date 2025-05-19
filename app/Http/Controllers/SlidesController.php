@@ -14,7 +14,6 @@ class SlidesController extends Controller
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = Slides::all();
                 $data = Slides::join('users', 'slides.addedBy', '=', 'users.id')
                     ->join('hospitals', 'slides.hospitalId', '=', 'hospitals.id')
                     ->select('slides.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')

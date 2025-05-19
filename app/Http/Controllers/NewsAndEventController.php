@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
 use App\Hospital;
-
+use App\NewsEventPhoto;
 
 class NewsAndEventController extends Controller
 {
@@ -15,14 +15,15 @@ class NewsAndEventController extends Controller
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = NewsAndEvent::all();
-                $data = NewsAndEvent::join('users', 'news_and_events.addedBy', '=', 'users.id')
+                $data = NewsAndEvent::with('photos')
+                    ->join('users', 'news_and_events.addedBy', '=', 'users.id')
                     ->join('hospitals', 'news_and_events.hospitalId', '=', 'hospitals.id')
                     ->select('news_and_events.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
                     ->get();
             }
             else{
-                $data = NewsAndEvent::Where('news_and_events.hospitalId',Auth::user()->hospitalId)
+                $data = NewsAndEvent::with('photos')
+                    ->where('news_and_events.hospitalId',Auth::user()->hospitalId)
                     ->join('users', 'news_and_events.addedBy', '=', 'users.id')
                     ->join('hospitals', 'news_and_events.hospitalId', '=', 'hospitals.id')
                     ->select('news_and_events.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
@@ -51,17 +52,26 @@ class NewsAndEventController extends Controller
             'name' => 'required|string|max:255',
             'indexx' => 'required|integer',
             'details' => 'required|string',
-            'photo' => 'required|image|max:2048',
+            'photos.*' => 'required|image|max:2048',
         ]);
 
         $data = $request->all();
         $data['addedBy'] = Auth::id();
 
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('news_and_events_photo', 'public');
+        $newsEvent = NewsAndEvent::create($data);
+
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $image) {
+                $path = $image->store('news_and_events_photo', 'public');
+
+                // Create record in news_event_photos table
+                NewsEventPhoto::create([
+                    'news_event_id' => $newsEvent->id,
+                    'photo_path' => $path,
+                ]);
+            }
         }
 
-        NewsAndEvent::create($data);
 
         return redirect()->route('news_and_events.index')->with('success', 'News/Event added successfully.');
     }
@@ -102,13 +112,19 @@ class NewsAndEventController extends Controller
             $facility->indexx = $request->indexx;
             $facility->details = $request->details;
         
-            if ($request->hasFile('photo')) {
-                $imagePath = $request->file('photo')->store('news_and_events_photo', 'public');
-                $facility->photo = $imagePath;
-            }
-            
-        
             $facility->save();
+
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $image) {
+                    $path = $image->store('news_and_events_photo', 'public');
+
+                    // Create record in news_event_photos table
+                    NewsEventPhoto::create([
+                        'news_event_id' => $facility->id,
+                        'photo_path' => $path,
+                    ]);
+                }
+            }
     
             return redirect()->route('news_and_events.index')->with('success', 'News/Event updated successfully!');
         }

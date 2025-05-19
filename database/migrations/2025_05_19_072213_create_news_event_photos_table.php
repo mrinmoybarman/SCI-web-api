@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsAndEventsTable extends Migration
+class CreateNewsEventPhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateNewsAndEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news_and_events', function (Blueprint $table) {
+        Schema::create('news_event_photos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('hospitalId');
-            $table->integer('addedBy');
-            $table->string('name');
-            $table->string('details');
-            $table->integer('indexx');
-            $table->integer('status')->default(1);
+            $table->unsignedBigInteger('news_event_id');
+            $table->string('photo_path');
             $table->timestamps();
+            $table->foreign('news_event_id')->references('id')->on('news_and_events')->onDelete('cascade');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateNewsAndEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news_and_events');
+        Schema::dropIfExists('news_event_photos');
     }
 }

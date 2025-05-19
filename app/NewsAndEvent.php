@@ -3,10 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\NewsEventPhoto;
 
 class NewsAndEvent extends Model
 {
     protected $fillable = [
-        'hospitalId', 'addedBy', 'name', 'photo', 'details', 'indexx', 'status'
+        'hospitalId', 'addedBy', 'name', 'details', 'indexx', 'status'
     ];
+
+    public function photos()
+    {
+        return $this->hasMany(NewsEventPhoto::class, 'news_event_id');
+    }
 }

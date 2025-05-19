@@ -1,4 +1,5 @@
 <?php
+// use App\Http\Controllers\NewsAndEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::resource('facilities', FacilityController::class)->middleware('auth');
 
 // news_and_events routes // multiple images
 Route::resource('news_and_events', NewsAndEventController::class)->middleware('auth');
+Route::resource('news-event-photos', NewsEventPhotoController::class)->middleware('auth');
+
 
 // updates routes 
 Route::resource('updates', UpdatesController::class)->middleware('auth');

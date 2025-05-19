@@ -19,7 +19,7 @@ class api extends Controller
         $hospitalId = $request->hospitalId;
 
         // get doctors for the specific centre 
-        $doctors = Doctor::where('hospitalId',$hospitalId)->where('status',1)->orderBy('indexx', 'desc')->get();
+        $doctors = Doctor::where('hospitalId',$hospitalId)->where('status',1)->orderBy('indexx', 'asc')->get();
 
         // return as a json object
         return response()->json($doctors, 200);
@@ -41,7 +41,7 @@ class api extends Controller
          $hospitalId = $request->hospitalId;
 
         // get news update  for the specific centre 
-        $newsEvents = Facility::orderBy('id','desc')->where('hospitalId',$hospitalId)->get();
+        $newsEvents = Facility::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
         return response()->json($newsEvents, 200);
     }
     
@@ -79,7 +79,7 @@ class api extends Controller
         $hospitalId = $request->hospitalId;
 
         // get news & event for the specific centre 
-        $newsEvents = NewsAndEvent::orderBy('id','desc')->where('hospitalId',$hospitalId)->where('status',1)->get();
+        $newsEvents = NewsAndEvent::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->where('status',1)->get();
 
         return response()->json($newsEvents, 200);
     }
@@ -90,7 +90,7 @@ class api extends Controller
         $hospitalId = $request->hospitalId;
 
         // get news & event for the specific centre 
-        $newsEvents = Slides::orderBy('id','desc')->where('hospitalId',$hospitalId)->get();
+        $newsEvents = Slides::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
 
         return response()->json($newsEvents, 200);
     }
@@ -101,7 +101,7 @@ class api extends Controller
         $hospitalId = $request->hospitalId;
 
         // get news update  for the specific centre 
-        $newsEvents = Updates::orderBy('id','desc')->where('hospitalId',$hospitalId)->get();
+        $newsEvents = Updates::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
         return response()->json($newsEvents, 200);
     }
 
