@@ -24,7 +24,7 @@ class CreateDoctorsTable extends Migration
             $table->string('specialization')->nullable();
             $table->string('achievement')->nullable();
             $table->string('awards')->nullable();
-            $table->string('profile_details');
+            $table->longText('profile_details');
             $table->string('photo')->nullable();
             $table->integer('status')->default(1);
             $table->integer('indexx');

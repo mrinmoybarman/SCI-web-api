@@ -16,8 +16,12 @@ use Illuminate\Http\Request;
 // this is to fetch all doctor from a center  
 Route::post('/get-hospitals', 'api@getHospitals');
 
+Route::get('/get-hospital/{id}', 'api@getSingleHospital');
+
 // this is to fetch all doctor from a center  
 Route::post('/get-doctor-for-center', 'api@getCentreDoctor');
+
+Route::get('/get-doctor/{id}', 'api@getSingleDoctor');
 
 // this is to fetch latest footfall count of a center  
 Route::post('/get-counts-for-center', 'api@getCentreFootfall');

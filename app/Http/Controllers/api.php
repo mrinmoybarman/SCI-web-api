@@ -25,6 +25,16 @@ class api extends Controller
         return response()->json($doctors, 200);
     }
 
+    public function getSingleDoctor($id){
+        $doctor = Doctor::find($id);
+
+        if (!$doctor) {
+            return response()->json(['message' => 'Doctor not found'], 404);
+        }
+
+        return response()->json($doctor);
+    }
+
     public function getCenterFecility(Request $request){
         
         // get the centre code from body 
@@ -51,6 +61,16 @@ class api extends Controller
         $hospitals = Hospital::orderBy('id','desc')->get();
 
         return response()->json($hospitals, 200);
+    }
+
+    public function getSingleHospital($id){
+        $doctor = Hospital::find($id);
+
+        if (!$doctor) {
+            return response()->json(['message' => 'Hospital not found'], 404);
+        }
+
+        return response()->json($doctor);
     }
 
     public function getCentreNewsEvents(Request $request){
