@@ -46,7 +46,8 @@ Route::resource('slides', SlidesController::class)->middleware('auth');
 // slides routes 
 Route::resource('enquiries', EnquiryController::class)->middleware('auth');
 
-
 // Partners routes 
 Route::resource('partners', PartnerController::class)->middleware('auth');
 
+// Partners routes 
+Route::resource('about_sections', AboutSectionController::class)->middleware('auth');

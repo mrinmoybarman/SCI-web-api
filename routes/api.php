@@ -44,3 +44,7 @@ Route::post('/submit-message', 'EnquiryController@store');
 // this is to sent messsage
 Route::post('/get-partners-for-center', 'api@getCentrePertners');
 
+
+// this is to sent messsage
+Route::post('/get-about-sections-for-center', 'api@getAboutSectionPertners');
+

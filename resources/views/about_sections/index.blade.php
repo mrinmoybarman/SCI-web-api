@@ -7,13 +7,13 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Add New Partners</h1>
+      <h1 class="h3 mb-0 text-gray-800">Add New About Section</h1>
     </div>
 
     <div class="row">
 
       <div class="col-md-8 form-box">
-        <form action="{{ route('partners.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('about_sections.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
             <label for="hospital">Select Hospital</label>
@@ -41,15 +41,15 @@
           </div>
 
           <div class="form-group">
-            <label for="title">link : </label>
-            <input type="text" class="form-control @error('link') is-invalid @enderror" value="{{ old('link') }}" name="link">
-            @error('link')
+            <label for="description">Description:</label>
+            <textarea class="form-control @error('details') is-invalid @enderror" value="{{ old('details') }}" rows="4" name="details"></textarea>
+            @error('details')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
             @enderror
           </div>
-
+          
           <div class="form-group">
             <label for="title">Index : </label>
             <input type="text" class="form-control @error('indexx') is-invalid @enderror" value="{{ old('indexx') }}" name="indexx">
@@ -83,7 +83,7 @@
   <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Partners</h1>
+        <h1 class="h3 mb-0 text-gray-800">About Sections</h1>
     </div>
 
     <div class="row">
@@ -97,8 +97,8 @@
                           <th>Hospital Name</th>
                           <th>Added By</th>
                           <th>Name</th>
-                          <th>Link</th>
-                          <th>indexx</th>
+                          <th>Index</th>
+                          <th>Details</th>
                           <th>photo</th>
                           <th>Actions</th>
                       </tr>
@@ -132,14 +132,14 @@ $(function () {
     $('#hospital-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('partners.index') }}",
+        ajax: "{{ route('about_sections.index') }}",
         columns: [
             { data: 'id' },
             { data: 'hospital_name' },
             { data: 'added_by_name' },
             { data: 'name' },
-            { data: 'link' },
             { data: 'indexx'}, 
+            { data: 'details'}, 
             {
                 data: null,
                 render: function(data, type, row) {
@@ -175,27 +175,27 @@ $(function () {
 // Handle Edit button click
 $(document).on('click', '.edit-btn', function() {
   var employeeId = $(this).data('id');
-  window.location.href = '/partners/' + employeeId + '/edit'; // Redirect to edit page
+  window.location.href = '/about_sections/' + employeeId + '/edit'; // Redirect to edit page
 });
 
 // Handle Delete button click
 $(document).on('click', '.delete-btn', function() {
         var employeeId = $(this).data('id');
-        if (confirm('Are you sure you want to delete this Partner ?')) {
+        if (confirm('Are you sure you want to delete this About Section ?')) {
             // Make a DELETE request to delete the employee
             $.ajax({
-                url: '/partners/' + employeeId,
+                url: '/about_sections/' + employeeId,
                 data: {
                     _token: '{{ csrf_token() }}',  // Include CSRF token
                 },
                 method: 'DELETE',
                 success: function(response) {
-                    alert('Partner deleted successfully!');
+                    alert('About Section deleted successfully!');
                     $('#hospital-table').DataTable().ajax.reload(); // Reload the table data
                 },
                 error: function(xhr) {
                   console.log(xhr);
-                    alert('Error deleting Partner !');
+                    alert('Error deleting About Section !');
                 }
             });
         }

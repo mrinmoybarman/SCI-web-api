@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col-md-8 form-box">
-      <form action="{{ route('partners.update', $partner->id) }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('about_sections.update', $aboutSection->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -18,7 +18,7 @@
             <select class="form-control @error('hospitalId') is-invalid @enderror" name="hospitalId" {{ $userHospitalId !== null ? 'readonly' : '' }} required>
                 <option value="">Select Hospital</option>
                 @foreach ($hospitals as $hospital)
-                    <option value="{{ $hospital->id }}" @if (old('hospitalId', $partner->hospitalId ?? $userHospitalId) == $hospital->id) selected @endif>
+                    <option value="{{ $hospital->id }}" @if (old('hospitalId', $aboutSection->hospitalId ?? $userHospitalId) == $hospital->id) selected @endif>
                         {{ $hospital->name }}
                     </option>
                 @endforeach
@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="title">Name : </label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $partner->name) }}" name="name">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $aboutSection->name) }}" name="name">
             @error('name')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -39,19 +39,18 @@
         </div>
 
         <div class="form-group">
-            <label for="title">Edit Link : </label>
-            <input type="text" class="form-control @error('link') is-invalid @enderror" value="{{ old('link', $partner->link) }}" name="link">
-            @error('link')
+            <label for="description">Description:</label>
+            <textarea class="form-control @error('details') is-invalid @enderror" rows="4" name="details">{{ old('details', $aboutSection->details) }}</textarea>
+            @error('details')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
             @enderror
         </div>
-
     
         <div class="form-group">
             <label>Edit Index:</label>
-            <input type="text" class="form-control @error('indexx') is-invalid @enderror" value="{{ old('indexx', $partner->indexx) }}" name="indexx">
+            <input type="text" class="form-control @error('indexx') is-invalid @enderror" value="{{ old('indexx', $aboutSection->indexx) }}" name="indexx">
             @error('indexx')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -60,7 +59,7 @@
         <div class="form-group">
             <label>Slide Photo:</label>
             <input type="file" id="photo" name="photo" accept="image/*" class="@error('photo') is-invalid @enderror" onchange="previewImage(this, '#Photo-preview')">
-            <img id="Photo-preview" src="{{ $partner->photo ? asset('storage/'.$partner->photo) : '#' }}" height="50" style="{{ $partner->photo ? '' : 'display:none;' }}">
+            <img id="Photo-preview" src="{{ $aboutSection->photo ? asset('storage/'.$aboutSection->photo) : '#' }}" height="50" style="{{ $aboutSection->photo ? '' : 'display:none;' }}">
             @error('photo')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
