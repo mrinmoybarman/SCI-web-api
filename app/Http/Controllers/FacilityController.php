@@ -46,16 +46,37 @@ class FacilityController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'hospitalId' => 'required|exists:hospitals,id',
             'name' => 'required|string|max:255',
             'indexx' => 'required|integer',
-            'details' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'description' => 'required|string',
             'photo' => 'required|image|max:2048',
         ]);
 
+        // dd($request);
+        
         $data = $request->all();
+
         $data['addedBy'] = Auth::id();
+
+        if($request->read_more == 'on'){
+          $data['read_more'] = 1;
+        }
+        else{
+          $data['read_more'] = 0;
+        }
+
+        if($request->read_more2 == 'on'){
+          $data['read_more2'] = 1;
+        }
+        else{
+          $data['read_more2'] = 0;
+        }
+
 
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('facility_photo', 'public');
@@ -89,9 +110,12 @@ class FacilityController extends Controller
             'hospitalId' => 'required|exists:hospitals,id',
             'name' => 'required|string|max:255',
             'indexx' => 'required|integer',
-            'details' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'description' => 'required|string',
             'photo' => 'nullable|image|max:2048',
         ]);
+
 
         $facility = Facility::findOrFail($id);
 
@@ -100,8 +124,25 @@ class FacilityController extends Controller
             $facility->hospitalId = $request->hospitalId;
             $facility->name = $request->name;
             $facility->indexx = $request->indexx;
-            $facility->details = $request->details;
+            $facility->short_description = $request->short_description;
+            $facility->long_description = $request->long_description;
+            $facility->description = $request->description;
         
+            if($request->read_more == 'on'){
+              $facility->read_more = 1;
+            }
+            else{
+              $facility->read_more = 0;
+            }
+
+            if($request->read_more2 == 'on'){
+              $facility->read_more2 = 1;
+            }
+            else{
+              $facility->read_more2 = 0;
+            }
+
+
             if ($request->hasFile('photo')) {
                 $imagePath = $request->file('photo')->store('facility_photo', 'public');
                 $facility->photo = $imagePath;

@@ -43,12 +43,54 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-    
+
         <div class="form-group">
-            <label>Facility Details:</label>
-            <textarea class="form-control @error('details') is-invalid @enderror" rows="4" name="details">{{ old('details', $facility->details) }}</textarea>
-            @error('details')
-                <div class="invalid-feedback">{{ $message }}</div>
+            <label for="short_description">Short Description:</label>
+            <textarea class="form-control @error('short_description') is-invalid @enderror" rows="4" name="short_description">{{ old('short_description', $facility->short_description) }}</textarea>
+            @error('short_description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="long_description">Long Description:</label>
+            <textarea class="form-control @error('long_description') is-invalid @enderror" rows="4" name="long_description">{{ old('long_description', $facility->long_description) }}</textarea>
+            @error('long_description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control @error('description') is-invalid @enderror" rows="4" name="description">{{ old('description', $facility->description) }}</textarea>
+            @error('description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input @error('read_more') is-invalid @enderror" id="read_more" name="read_more" {{ old('read_more') || $facility->read_more ? 'checked' : '' }}>
+            <label class="form-check-label" for="read_more">Is Read More Button Active ?</label>
+            @error('read_more')
+                <div class="invalid-feedback d-block">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input @error('read_more2') is-invalid @enderror" id="read_more2" name="read_more2" {{ old('read_more2') || $facility->read_more2 ? 'checked' : '' }}>
+            <label class="form-check-label" for="read_more">Is Read More Button 2 Active ?</label>
+            @error('read_more2')
+                <div class="invalid-feedback d-block">
+                    {{ $message }}
+                </div>
             @enderror
         </div>
     

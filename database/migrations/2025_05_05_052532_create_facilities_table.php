@@ -22,8 +22,8 @@ class CreateFacilitiesTable extends Migration
             $table->longText('short_description');
             $table->longText('long_description');
             $table->longText('description');
-            $table->boolean('read_more');
-            $table->boolean('read_more2');
+            $table->boolean('read_more')->default(0);
+            $table->boolean('read_more2')->default(0);
             $table->integer('indexx');
             $table->timestamps();
         });
