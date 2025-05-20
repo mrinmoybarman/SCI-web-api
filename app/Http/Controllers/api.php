@@ -8,6 +8,7 @@ use App\Hospital;
 use App\NewsAndEvent;
 use App\Slides;
 use App\Updates;
+use App\Partner;
 
 
 class api extends Controller
@@ -105,6 +106,14 @@ class api extends Controller
         return response()->json($newsEvents, 200);
     }
 
+    public function getCentrePertners(Request $request){
+        // get the centre code from body 
+        $hospitalId = $request->hospitalId;
+
+        // get news update  for the specific centre 
+        $pertners = Partner::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
+        return response()->json($pertners, 200);
+    }
     
     
 

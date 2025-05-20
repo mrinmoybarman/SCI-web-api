@@ -114,6 +114,15 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('partners.index') }}">
+              {{-- <i class="fa fa-pencil-square-o"></i> --}}
+              {{-- <i class="fas fa-shoe-prints"></i> --}}
+              <i class="fas fa-handshake" aria-hidden="true"></i>
+              <span>Partners</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('news_and_events.index') }}">
               <i class="fas fa-globe" aria-hidden="true"></i>
               <span>News & Events</span>

@@ -27,7 +27,7 @@ Route::get('/get-doctor/{id}', 'api@getSingleDoctor');
 Route::post('/get-counts-for-center', 'api@getCentreFootfall');
 
 // this is to fetch all facility of a center  
-Route::post('/get-facility-for-center', 'api@getFecility');
+Route::post('/get-facility-for-center', 'api@getCenterFecility');
 
 // this is to fetch all news & events of a center  
 Route::post('/get-news-events-for-center', 'api@getCentreNewsEvents');
@@ -35,12 +35,12 @@ Route::post('/get-news-events-for-center', 'api@getCentreNewsEvents');
 // this is to fetch all news & events of a center  
 Route::post('/get-slides-for-center', 'api@getCentreSlides');
 
-
 // this is to fetch all news update of a center  
 Route::post('/get-updates-for-center', 'api@getCentreUpdate');
-
 
 // this is to sent messsage
 Route::post('/submit-message', 'EnquiryController@store');
 
+// this is to sent messsage
+Route::post('/get-partners-for-center', 'api@getCentrePertners');
 
