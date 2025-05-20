@@ -81,7 +81,7 @@ class api extends Controller
         $hospitalId = $request->hospitalId;
 
         // get news & event for the specific centre 
-        $newsEvents = NewsAndEvent::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->where('status',1)->get();
+        $newsEvents = NewsAndEvent::with('photos')->orderBy('indexx','asc')->where('hospitalId',$hospitalId)->where('status',1)->get();
 
         return response()->json($newsEvents, 200);
     }
@@ -103,7 +103,7 @@ class api extends Controller
         $hospitalId = $request->hospitalId;
 
         // get news update  for the specific centre 
-        $newsEvents = Updates::with('photos')->orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
+        $newsEvents = Updates::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
         return response()->json($newsEvents, 200);
     }
 
@@ -113,7 +113,7 @@ class api extends Controller
 
         // get news update  for the specific centre 
         $pertners = Partner::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
-        return response()->json($newsEvents, 200);
+        return response()->json($pertners, 200);
     }
     
     public function getAboutSectionPertners(Request $request){

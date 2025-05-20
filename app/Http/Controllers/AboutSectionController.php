@@ -50,11 +50,22 @@ class AboutSectionController extends Controller
             'name' => 'required|string|max:255',
             'indexx' => 'required|integer',
             'photo' => 'required|image|max:2048',
-            'details' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'description' => 'required|string',
+            'read_more' => 'required|string',
         ]);
 
         $data = $request->all();
         $data['addedBy'] = Auth::id();
+
+
+        if($request->read_more == 'on'){
+              $data['read_more'] = 1;
+        }
+        else{
+            $data['read_more'] = 0;
+        }
 
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('partner_photo', 'public');
@@ -90,23 +101,33 @@ class AboutSectionController extends Controller
             'name' => 'required|string|max:255',
             'indexx' => 'required|integer',
             'photo' => 'nullable|image|max:2048',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'description' => 'required|string',
         ]);
 
-        $partner = AboutSection::findOrFail($id);
+        $aboutSection = AboutSection::findOrFail($id);
 
         // dd($slide, Auth::user());
         if(Auth::user()->role == 9 || $partner->hospitalId === Auth::user()->hospitalId){
 
-            $partner->hospitalId = $request->hospitalId;
-            $partner->indexx = $request->indexx;
-            $partner->name = $request->name;
+            $aboutSection->hospitalId = $request->hospitalId;
+            $aboutSection->indexx = $request->indexx;
+            $aboutSection->name = $request->name;
             
+            if($request->read_more == 'on'){
+              $aboutSection->read_more = 1;
+            }
+            else{
+              $aboutSection->read_more = 0;
+            }
+
             if ($request->hasFile('photo')) {
                 $imagePath = $request->file('photo')->store('partner_photo', 'public');
-                $partner->photo = $imagePath;
+                $aboutSection->photo = $imagePath;
             }
         
-            $partner->save();
+            $aboutSection->save();
     
             return redirect()->route('about_sections.index')->with('success', 'Partner updated successfully!');
         }

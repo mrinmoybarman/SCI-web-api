@@ -41,10 +41,40 @@
           </div>
 
           <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control @error('details') is-invalid @enderror" value="{{ old('details') }}" rows="4" name="details"></textarea>
-            @error('details')
+            <label for="short_description">Short Description:</label>
+            <textarea class="form-control @error('short_description') is-invalid @enderror" value="{{ old('short_description') }}" rows="4" name="short_description"></textarea>
+            @error('short_description')
                 <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="long_description">Long Description:</label>
+            <textarea class="form-control @error('long_description') is-invalid @enderror" value="{{ old('long_description') }}" rows="4" name="long_description"></textarea>
+            @error('long_description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" rows="4" name="description"></textarea>
+            @error('description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input @error('read_more') is-invalid @enderror" id="read_more" name="read_more" {{ old('read_more') ? 'checked' : '' }}>
+            <label class="form-check-label" for="read_more">Is Read More Button Active ?</label>
+            @error('read_more')
+                <div class="invalid-feedback d-block">
                     {{ $message }}
                 </div>
             @enderror
@@ -98,7 +128,10 @@
                           <th>Added By</th>
                           <th>Name</th>
                           <th>Index</th>
-                          <th>Details</th>
+                          <th>Short Description</th>
+                          <th>Long Description</th>
+                          <th>Description</th>
+                          <th>Read More</th>
                           <th>photo</th>
                           <th>Actions</th>
                       </tr>
@@ -139,7 +172,10 @@ $(function () {
             { data: 'added_by_name' },
             { data: 'name' },
             { data: 'indexx'}, 
-            { data: 'details'}, 
+            { data: 'short_description'}, 
+            { data: 'long_description'}, 
+            { data: 'description'}, 
+            { data: 'read_more'}, 
             {
                 data: null,
                 render: function(data, type, row) {

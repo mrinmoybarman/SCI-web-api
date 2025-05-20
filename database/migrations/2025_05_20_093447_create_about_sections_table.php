@@ -19,7 +19,10 @@ class CreateAboutSectionsTable extends Migration
             $table->integer('addedBy');
             $table->string('name');
             $table->integer('indexx');
-            $table->longText('details');
+            $table->longText('short_description');
+            $table->longText('long_description');
+            $table->longText('description');
+            $table->boolean('read_more');
             $table->string('photo');
             $table->timestamps();
         });
