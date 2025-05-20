@@ -53,7 +53,6 @@ class AboutSectionController extends Controller
             'short_description' => 'required|string',
             'long_description' => 'required|string',
             'description' => 'required|string',
-            'read_more' => 'required|string',
         ]);
 
         $data = $request->all();
