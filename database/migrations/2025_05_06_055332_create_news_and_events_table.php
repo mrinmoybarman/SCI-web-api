@@ -18,7 +18,8 @@ class CreateNewsAndEventsTable extends Migration
             $table->string('hospitalId');
             $table->integer('addedBy');
             $table->string('name');
-            $table->string('details');
+            $table->date('date');
+            $table->longText('details');
             $table->integer('indexx');
             $table->integer('status')->default(1);
             $table->timestamps();

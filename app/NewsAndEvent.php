@@ -8,7 +8,7 @@ use App\NewsEventPhoto;
 class NewsAndEvent extends Model
 {
     protected $fillable = [
-        'hospitalId', 'addedBy', 'name', 'details', 'indexx', 'status'
+        'hospitalId', 'addedBy', 'name', 'details', 'indexx', 'status', 'date'
     ];
 
     public function photos()

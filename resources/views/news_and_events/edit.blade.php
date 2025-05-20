@@ -35,6 +35,16 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+         <div class="form-group">
+            <label for="description">Edit Date:</label>
+            <input type="date" class="form-control @error('date') is-invalid @enderror" value="{{ old('date', $news_and_event->date) }}" name="date" />
+            @error('date')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
     
         <div class="form-group">
             <label>Edit Index:</label>
@@ -46,11 +56,12 @@
     
         <div class="form-group">
             <label>Edit Description:</label>
-            <textarea class="form-control @error('details') is-invalid @enderror" rows="4" name="details">{{ old('details', $news_and_event->details) }}</textarea>
+            <textarea class="form-control @error('details') is-invalid @enderror" rows="4" name="details"> {{ old('details', $news_and_event->details) }} </textarea>
             @error('details')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        
         <label>Upload More Photos</label>
         <input type="file" name="photos[]" multiple class="form-control" onchange="previewImages(this)">
         <div class="mt-3">

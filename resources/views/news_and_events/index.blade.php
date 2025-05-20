@@ -41,6 +41,16 @@
           </div>
           
           <div class="form-group">
+            <label for="description">Select Date:</label>
+            <input type="date" class="form-control @error('date') is-invalid @enderror" value="{{ old('date') }}" name="date" />
+            @error('date')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+
+          <div class="form-group">
             <label for="description">Description:</label>
             <textarea class="form-control @error('details') is-invalid @enderror" value="{{ old('details') }}" rows="4" name="details"></textarea>
             @error('details')
@@ -85,7 +95,7 @@
   <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Facilites</h1>
+        <h1 class="h3 mb-0 text-gray-800">News & Events</h1>
     </div>
 
     <div class="row">
@@ -97,9 +107,10 @@
                       <tr>
                           <th>ID</th>
                           <th>Name</th>
+                          <th>Date</th>
                           <th>Hospital Name</th>
                           <th>Added By</th>
-                          <th>Profile Details</th>
+                          <th>Details</th>
                           <th>indexx</th>
                           <th>photos</th>
                           <th>Actions</th>
@@ -138,6 +149,7 @@ $(function () {
         columns: [
             { data: 'id' },
             { data: 'name' },
+            { data: 'date' },
             { data: 'hospital_name' },
             { data: 'added_by_name' },
             { data: 'details'}, 

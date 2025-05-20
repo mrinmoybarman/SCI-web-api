@@ -51,6 +51,7 @@ class NewsAndEventController extends Controller
             'hospitalId' => 'required|exists:hospitals,id',
             'name' => 'required|string|max:255',
             'indexx' => 'required|integer',
+            'date' => 'required|date',
             'details' => 'required|string',
             'photos.*' => 'required|image|max:2048',
         ]);
@@ -111,6 +112,7 @@ class NewsAndEventController extends Controller
             $facility->name = $request->name;
             $facility->indexx = $request->indexx;
             $facility->details = $request->details;
+            $facility->date = $request->date;
         
             $facility->save();
 

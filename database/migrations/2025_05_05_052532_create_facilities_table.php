@@ -19,7 +19,11 @@ class CreateFacilitiesTable extends Migration
             $table->integer('addedBy');
             $table->string('name');
             $table->string('photo')->nullable();
-            $table->string('details');
+            $table->longText('short_description');
+            $table->longText('long_description');
+            $table->longText('description');
+            $table->boolean('read_more');
+            $table->boolean('read_more2');
             $table->integer('indexx');
             $table->timestamps();
         });
