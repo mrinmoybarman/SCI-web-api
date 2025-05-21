@@ -48,3 +48,8 @@ Route::post('/get-partners-for-center', 'api@getCentrePertners');
 // this is to sent messsage
 Route::post('/get-about-sections-for-center', 'api@getAboutSectionPertners');
 
+//get videos
+Route::post('/get-videos-for-center', 'api@getCentreVideo');
+
+
+

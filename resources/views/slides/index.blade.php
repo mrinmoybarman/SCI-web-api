@@ -42,7 +42,7 @@
 
 
           <div class="form-group">
-            <label for="logo_primary">Photo:</label>
+            <label for="photo">Photo:</label>
             <input type="file" id="photo" name="photo" accept="image/*" class="@error('photo') is-invalid @enderror" onchange="previewImage(this, '#Photo-preview')">
             <img id="Photo-preview" src="#" height="50" style="display:none;">
             @error('photo')

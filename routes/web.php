@@ -51,3 +51,7 @@ Route::resource('partners', PartnerController::class)->middleware('auth');
 
 // Partners routes 
 Route::resource('about_sections', AboutSectionController::class)->middleware('auth');
+
+
+// Partners routes 
+Route::resource('videos', VideoController::class)->middleware('auth');

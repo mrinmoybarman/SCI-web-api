@@ -10,6 +10,7 @@ use App\Slides;
 use App\Updates;
 use App\Partner;
 use App\AboutSection;
+use App\Video;
 
 
 class api extends Controller
@@ -122,6 +123,15 @@ class api extends Controller
 
         // get news update  for the specific centre 
         $aboutSections = AboutSection::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
+        return response()->json($aboutSections, 200);
+    }
+
+    public function getCentreVideo(Request $request){
+        // get the centre code from body 
+        $hospitalId = $request->hospitalId;
+
+        // get news update  for the specific centre 
+        $aboutSections = Video::orderBy('indexx','asc')->where('hospitalId',$hospitalId)->get();
         return response()->json($aboutSections, 200);
     }
 
