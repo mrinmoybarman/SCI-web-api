@@ -97,6 +97,26 @@
             <input type="text" class="form-control" rows="1" name="linkedin"></textarea>
           </div>
 
+          <div class="form-group">
+            <label for="intro_heading">Intro Heading :</label>
+            <input type="text" class="form-control" rows="1" name="intro_heading" />
+            @error('intro_heading')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
+
+          
+          <div class="form-group">
+            <label for="intro">Intro :</label>
+            <textarea class="form-control @error('intro') is-invalid @enderror" value="{{ old('intro') }}" rows="4" name="intro"></textarea>
+            @error('intro')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+          </div>
 
           <div class="form-group">
             <label for="logo_primary">Primary Logo (Square):</label>
@@ -115,6 +135,16 @@
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
+
+          <div class="form-group">
+            <label for="logo_secondary">About Background:</label>
+            <input type="file" id="about_bg" name="about_bg" accept="image/*" class="@error('about_bg') is-invalid @enderror" onchange="previewImage(this, '#about_bg-preview')">
+            <img id="about_bg-preview" src="#" height="50" style="display:none;">
+            @error('about_bg')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -153,8 +183,11 @@
                           <th>Twitter</th>
                           <th>Linkedin</th>
                           <th>Instagram</th>
+                          <th>Intro Heading</th>
+                          <th>Intro</th>
                           <th>Primary Logo</th>
                           <th>Secondary Logo</th>
+                          <th>About Background</th>
                           <th>Actions</th>
                       </tr>
                   </thead>
@@ -201,9 +234,11 @@ $(function () {
             { data: 'gmap'}, 
             { data: 'level'}, 
             { data: 'facebook'}, 
-            { data: 'instagram'},
             { data: 'twitter'},
             { data: 'linkedin'}, 
+            { data: 'instagram'},
+            { data: 'intro_heading'},
+            { data: 'intro'},
             {
                 data: null,
                 render: function(data, type, row) {
@@ -216,6 +251,14 @@ $(function () {
                 data: null,
                 render: function(data, type, row) {
                     return `<img src="/storage/${row['logo_secondary']}" style="max-height:70px;width:auto" />`;
+                },
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return `<img src="/storage/${row['about_bg']}" style="max-height:70px;width:auto" />`;
                 },
                 orderable: false,
                 searchable: false

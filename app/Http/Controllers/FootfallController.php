@@ -15,7 +15,6 @@ class FootfallController extends Controller
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = Footfall::all();
                 $data = Footfall::join('users', 'footfalls.addedBy', '=', 'users.id')
                     ->join('hospitals', 'footfalls.hospitalId', '=', 'hospitals.id')
                     ->select('footfalls.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')

@@ -14,8 +14,7 @@ class HospitalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Hospital::select(['id', 'name', 'aname', 'location', 'phone', 'phone2', 'email', 'whatsapp', 'address', 'gmap', 'level', 'facebook', 'instagram','twitter','linkedin', 'logo_primary', 'logo_secondary']);
-            // dd($data);
+            $data = Hospital::select(['id', 'name', 'aname', 'location', 'phone', 'phone2', 'email', 'whatsapp', 'address', 'gmap', 'level', 'facebook', 'instagram','twitter','linkedin', 'intro_heading', 'intro', 'logo_primary', 'logo_secondary', 'about_bg']);
             return DataTables::of($data)->make(true);
         }
 
@@ -30,11 +29,14 @@ class HospitalController extends Controller
             'level' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'email' => 'nullable|email',
+            'intro_heading' =>'required|string|max:255',
+            'intro' =>'required|string',
+            'address' => 'required|string',
             'logo_primary' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'logo_secondary' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'about_bg' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // $data = $request->only(['name', 'email', 'location', 'level']);
         $data = $request->all();
 
 
@@ -44,6 +46,10 @@ class HospitalController extends Controller
 
         if ($request->hasFile('logo_secondary')) {
             $data['logo_secondary'] = $request->file('logo_secondary')->store('logo_secondary', 'public');
+        }
+
+        if ($request->hasFile('about_bg')) {
+            $data['about_bg'] = $request->file('about_bg')->store('about_bg', 'public');
         }
 
         Hospital::create($data);
@@ -65,8 +71,12 @@ class HospitalController extends Controller
             'location' => 'required|string|max:255',
             'address' => 'required|string',
             'level' => 'required',
+            'intro_heading' =>'required|string|max:255',
+            'intro' =>'required|string',
+            'address' => 'required|string',
             'logo-primary' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'logo-secondary' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'about_bg' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $hospital = Hospital::findOrFail($id);
@@ -84,6 +94,8 @@ class HospitalController extends Controller
         $hospital->instagram = $request->instagram;
         $hospital->twitter = $request->twitter;
         $hospital->linkedin = $request->linkedin;
+        $hospital->intro_heading = $request->intro_heading;
+        $hospital->intro = $request->intro;
 
         if ($request->hasFile('logo-primary')) {
             // Delete old file if exists
@@ -99,6 +111,14 @@ class HospitalController extends Controller
             }
             $hospital->logo_secondary = $request->file('logo-secondary')->store('hospitals');
         }
+
+        if ($request->hasFile('about_bg')) {
+            if ($hospital->about_bg && Storage::exists($hospital->about_bg)) {
+                Storage::delete($hospital->about_bg);
+            }
+            $hospital->about_bg = $request->file('about_bg')->store('hospitals');
+        }
+
 
         $hospital->save();
 

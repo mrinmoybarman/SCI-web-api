@@ -95,6 +95,19 @@
         </div>
 
         <div class="form-group">
+          <label for="intro_heading">Edit Intro Heading :</label>
+          <input type="text" class="form-control @error('intro_heading') is-invalid @enderror" 
+                 name="intro_heading" value="{{ old('intro_heading', $hospital->intro_heading) }}">
+          @error('intro_heading')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+
+        <div class="form-group">
+          <label for="address">Edit Intro :</label>
+          <textarea class="form-control @error('intro') is-invalid @enderror" name="intro" rows="4">{{ old('intro', $hospital->intro) }}</textarea>
+          @error('intro')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+
+        <div class="form-group">
           <label for="logo_primary">Update Primary Logo (Square):</label>
           <input type="file" id="logo_primary" name="logo_primary" accept="image/*" class="@error('logo_primary') is-invalid @enderror" onchange="previewImage(this, '#logo_primary-preview')">
           
@@ -125,7 +138,24 @@
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>
-        
+
+
+        <div class="form-group">
+          <label for="about_bg">Update About Background :</label>
+          <input type="file" id="about_bg" name="about_bg" accept="image/*" class="@error('about_bg') is-invalid @enderror" onchange="previewImage(this, '#about_bg-preview')">
+          
+          @if($hospital->about_bg)
+            <p class="mt-2">Current:</p>
+            <img id="about_bg-preview" src="{{ asset('storage/' . $hospital->about_bg) }}" height="50" style="display: block;">
+          @else
+            <img id="about_bg-preview" src="#" height="50" style="display:none;">
+          @endif
+          
+          @error('about_bg')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
 
         <button type="submit" class="btn btn-primary">Update Hospital</button>
       </form>

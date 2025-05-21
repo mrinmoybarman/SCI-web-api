@@ -31,6 +31,9 @@ class CreateHospitalsTable extends Migration
             $table->string('linkedin')->nullable();
             $table->string('logo_primary')->nullable();
             $table->string('logo_secondary')->nullable();
+            $table->longText('intro_heading');
+            $table->string('intro');
+            $table->string('about_bg');
             $table->timestamps();
         });
     }
