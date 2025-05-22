@@ -116,9 +116,8 @@ class HospitalController extends Controller
             if ($hospital->about_bg && Storage::exists($hospital->about_bg)) {
                 Storage::delete($hospital->about_bg);
             }
-            $hospital->about_bg = $request->file('about_bg')->store('hospitals');
+            $hospital->about_bg = $request->file('about_bg')->store('about_bg', 'public');
         }
-
 
         $hospital->save();
 
