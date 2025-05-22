@@ -85,6 +85,7 @@ class HospitalController extends Controller
         $hospital->aname = $request->aname;
         $hospital->location = $request->location;
         $hospital->phone = $request->phone;
+        $hospital->phone2 = $request->phone2;
         $hospital->email = $request->email;
         $hospital->whatsapp = $request->whatsapp;
         $hospital->address = $request->address;
