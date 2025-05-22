@@ -16,7 +16,6 @@ class EnquiryController extends Controller
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = Enquiry::all();
                 $data = Enquiry::join('hospitals', 'enquiries.hospitalId', '=', 'hospitals.id')
                     ->select('enquiries.*', 'hospitals.name as hospital_name')
                     ->get();

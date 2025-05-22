@@ -14,7 +14,6 @@ class FacilityController extends Controller
     {
         if ($request->ajax()) {
             if(Auth::user()->role ===9){
-                $data = Facility::all();
                 $data = Facility::join('users', 'facilities.addedBy', '=', 'users.id')
                     ->join('hospitals', 'facilities.hospitalId', '=', 'hospitals.id')
                     ->select('facilities.*', 'users.name as added_by_name', 'hospitals.name as hospital_name')
