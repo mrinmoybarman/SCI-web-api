@@ -22,6 +22,7 @@ class CreateFootfallsTable extends Migration
             $table->integer('chemo');
             $table->integer('radiation');
             $table->integer('doctors');
+            $table->integer('total_beds');
             $table->timestamps();
         });
     }

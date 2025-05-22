@@ -8,7 +8,7 @@ class Footfall extends Model
 {
     //
     protected $fillable = [
-        'date', 'hospitalId', 'addedBy', 'patient', 'chemo', 'radiation', 'doctors'
+        'date', 'hospitalId', 'addedBy', 'patient', 'chemo', 'radiation', 'doctors', 'total_beds'
     ];
 
 }

@@ -94,6 +94,7 @@ class FootfallController extends Controller
             'chemo' => 'required|numeric',
             'radiation' => 'required|numeric',
             'doctors' => 'required|numeric',
+            'total_beds' => 'required|numeric',
         ]);
 
         // dd('validated');
@@ -110,6 +111,7 @@ class FootfallController extends Controller
                 'chemo' => $request->chemo,
                 'radiation' => $request->radiation,
                 'doctors' => $request->doctors,
+                'total_beds' => $request->total_beds,
             ]);
     
             return redirect()->route('footfall.index')->with('success', 'Footfall updated successfully!');

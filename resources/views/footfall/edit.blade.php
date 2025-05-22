@@ -52,7 +52,13 @@
             <label for="title">No Of Doctors : <span style="color:red">*</span></label>
             <input type="number" class="form-control" name="doctors" value="{{ old('doctors', $footfall->doctors) }}" required>
         </div>
+
+         <div class="form-group">
+            <label for="total_beds">No Of Beds : <span style="color:red">*</span></label>
+            <input type="number" class="form-control" name="total_beds" value="{{ old('total_beds', $footfall->total_beds) }}" required>
+        </div>
     
+
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
     
