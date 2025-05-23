@@ -113,6 +113,9 @@ class AboutSectionController extends Controller
             $aboutSection->hospitalId = $request->hospitalId;
             $aboutSection->indexx = $request->indexx;
             $aboutSection->name = $request->name;
+            $aboutSection->short_description = $request->short_description;
+            $aboutSection->long_description = $request->long_description;
+            $aboutSection->description = $request->description;
             
             if($request->read_more == 'on'){
               $aboutSection->read_more = 1;
